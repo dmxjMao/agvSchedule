@@ -69,9 +69,7 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\agvScheduleServer.ico"
-
 IDR_agvScheduleServTYPE ICON                    "res\\agvScheduleServerDoc.ico"
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -88,6 +86,17 @@ BEGIN
         MENUITEM "最近的文件",                       ID_FILE_MRU_FILE1, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "退出(&X)",                      ID_APP_EXIT
+    END
+    POPUP "编辑(&E)"
+    BEGIN
+        MENUITEM "设置坐标",                        ID_EDIT_SETXY
+        MENUITEM "重新设置坐标",                      ID_EDIT_RESETXY
+        MENUITEM "导入坐标",                        ID_EDIT_IMPORTXY
+        MENUITEM "导出坐标",                        ID_EDIT_EXPORT
+    END
+    POPUP "窗口(&W)"
+    BEGIN
+        MENUITEM "调度窗口",                        ID_WINDOW_SCHEDULE
     END
     POPUP "帮助(&H)"
     BEGIN
@@ -133,6 +142,22 @@ BEGIN
     LTEXT           "agvScheduleServer，1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2016",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_DIALOG_SCHEDULE DIALOGEX 0, 0, 285, 129
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "调度窗口"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMBO_AGCNO,52,23,48,99,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "请指定车号和目标点号：",IDC_STATIC,7,7,271,50
+    LTEXT           "车号：",IDC_STATIC,15,25,25,8
+    LTEXT           "目标点号：",IDC_STATIC,111,25,41,8
+    COMBOBOX        IDC_COMBO_TARGETNO,153,23,48,99,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "请指定操作：",IDC_STATIC,7,62,271,40
+    COMBOBOX        IDC_COMBO_OPT,51,77,48,62,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "操作：",IDC_STATIC,14,79,25,8
+    PUSHBUTTON      "确认",IDOK,7,108,36,14
 END
 
 
@@ -190,8 +215,27 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 55
     END
+
+    IDD_DIALOG_SCHEDULE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 278
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 122
+    END
 END
 #endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG_SCHEDULE AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
 
 
 /////////////////////////////////////////////////////////////////////////////

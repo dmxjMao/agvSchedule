@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\map">
+      <UniqueIdentifier>{65e3becd-81a4-4efb-9f93-e8e14daca02d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Dijkstra">
+      <UniqueIdentifier>{11f442ca-85fa-463b-896a-44a5205dc38c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Dijkstra">
+      <UniqueIdentifier>{43f5c124-ad74-4b60-abce-bafab13ff79b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -39,6 +48,24 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NetSocketDef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MsgStruct.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ScheduleDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="repo3.h">
+      <Filter>头文件\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>头文件\Dijkstra</Filter>
+    </ClInclude>
+    <ClInclude Include="TableEntry.h">
+      <Filter>头文件\Dijkstra</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="agvScheduleServer.cpp">
@@ -55,6 +82,15 @@
     </ClCompile>
     <ClCompile Include="agvScheduleServerView.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NetSocketDef.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ScheduleDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>源文件\Dijkstra</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

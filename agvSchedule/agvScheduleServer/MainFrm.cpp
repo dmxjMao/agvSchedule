@@ -8,6 +8,7 @@
 #include "MainFrm.h"
 #include "agvScheduleServerDoc.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -18,8 +19,6 @@ IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
 
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
-//	ON_COMMAND(ID_FILE_OPEN, &CMainFrame::OnFileOpen)
-//ON_COMMAND(ID_FILE_OPEN, &CMainFrame::OnFileOpen)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -82,4 +81,6 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 
 // CMainFrame 消息处理程序
+
+
 

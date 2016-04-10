@@ -19,7 +19,7 @@
 // CagvScheduleServerApp
 
 BEGIN_MESSAGE_MAP(CagvScheduleServerApp, CWinApp)
-	ON_COMMAND(ID_APP_ABOUT, &CagvScheduleServerApp::OnAppAbout)
+//	ON_COMMAND(ID_APP_ABOUT, &CagvScheduleServerApp::OnAppAbout)
 	// 基于文件的标准文档命令
 	ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
@@ -91,7 +91,7 @@ BOOL CagvScheduleServerApp::InitInstance()
 		return FALSE;
 
 	// 唯一的一个窗口已初始化，因此显示它并对其进行更新
-	m_pMainWnd->ShowWindow(SW_SHOW);
+	m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
 	m_pMainWnd->UpdateWindow();
 	return TRUE;
 }
@@ -139,6 +139,7 @@ void CagvScheduleServerApp::OnAppAbout()
 }
 
 // CagvScheduleServerApp 消息处理程序
+
 
 
 

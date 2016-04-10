@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agvScheduleServer", "agvScheduleServer\agvScheduleServer.vcxproj", "{B106786A-9912-419A-9430-55FA3DDCBA8A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agvScheduleClient", "agvScheduleClient\agvScheduleClient.vcxproj", "{94070B6A-14CD-4809-BA5A-5F97C01A70DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{B106786A-9912-419A-9430-55FA3DDCBA8A}.Release|x64.Build.0 = Release|x64
 		{B106786A-9912-419A-9430-55FA3DDCBA8A}.Release|x86.ActiveCfg = Release|Win32
 		{B106786A-9912-419A-9430-55FA3DDCBA8A}.Release|x86.Build.0 = Release|Win32
+		{94070B6A-14CD-4809-BA5A-5F97C01A70DF}.Debug|x64.ActiveCfg = Debug|x64
+		{94070B6A-14CD-4809-BA5A-5F97C01A70DF}.Debug|x64.Build.0 = Debug|x64
+		{94070B6A-14CD-4809-BA5A-5F97C01A70DF}.Debug|x86.ActiveCfg = Debug|Win32
+		{94070B6A-14CD-4809-BA5A-5F97C01A70DF}.Debug|x86.Build.0 = Debug|Win32
+		{94070B6A-14CD-4809-BA5A-5F97C01A70DF}.Release|x64.ActiveCfg = Release|x64
+		{94070B6A-14CD-4809-BA5A-5F97C01A70DF}.Release|x64.Build.0 = Release|x64
+		{94070B6A-14CD-4809-BA5A-5F97C01A70DF}.Release|x86.ActiveCfg = Release|Win32
+		{94070B6A-14CD-4809-BA5A-5F97C01A70DF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

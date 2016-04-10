@@ -13,6 +13,9 @@
 #include "agvScheduleServerView.h"
 #include "MainFrm.h"
 
+#include "NetSocketDef.h"
+#include "ScheduleDlg.h"
+
 #include <propkey.h>
 
 #ifdef _DEBUG
@@ -26,6 +29,19 @@ IMPLEMENT_DYNCREATE(CagvScheduleServerDoc, CDocument)
 BEGIN_MESSAGE_MAP(CagvScheduleServerDoc, CDocument)
 //	ON_COMMAND(ID_FILE_OPEN, &CagvScheduleServerDoc::OnFileOpen)
 //ON_COMMAND(ID_FILE_OPEN, &CagvScheduleServerDoc::OnFileOpen)
+//ON_UPDATE_COMMAND_UI(ID_FILE_SETXY, &CagvScheduleServerDoc::OnUpdateFileSetxy)
+ON_UPDATE_COMMAND_UI(ID_FILE_START, &CagvScheduleServerDoc::OnUpdateFileStart)
+//ON_COMMAND(ID_FILE_SETXY, &CagvScheduleServerDoc::OnFileSetxy)
+ON_UPDATE_COMMAND_UI(ID_EDIT_SETXY, &CagvScheduleServerDoc::OnUpdateEditSetxy)
+ON_COMMAND(ID_EDIT_SETXY, &CagvScheduleServerDoc::OnEditSetxy)
+ON_COMMAND(ID_EDIT_IMPORTXY, &CagvScheduleServerDoc::OnEditImportxy)
+ON_UPDATE_COMMAND_UI(ID_EDIT_IMPORTXY, &CagvScheduleServerDoc::OnUpdateEditImportxy)
+ON_COMMAND(ID_EDIT_RESETXY, &CagvScheduleServerDoc::OnEditResetxy)
+ON_UPDATE_COMMAND_UI(ID_EDIT_RESETXY, &CagvScheduleServerDoc::OnUpdateEditResetxy)
+ON_COMMAND(ID_EDIT_EXPORT, &CagvScheduleServerDoc::OnEditExport)
+ON_UPDATE_COMMAND_UI(ID_EDIT_EXPORT, &CagvScheduleServerDoc::OnUpdateEditExport)
+ON_COMMAND(ID_FILE_START, &CagvScheduleServerDoc::OnFileStart)
+ON_COMMAND(ID_WINDOW_SCHEDULE, &CagvScheduleServerDoc::OnWindowSchedule)
 END_MESSAGE_MAP()
 
 
@@ -141,27 +157,6 @@ void CagvScheduleServerDoc::Dump(CDumpContext& dc) const
 
 // CagvScheduleServerDoc 命令
 
-//void CagvScheduleServerDoc::OnFileOpen()
-//{
-//	// TODO: 在此添加命令处理程序代码
-//	// 打开对话框
-//	CFileDialog fileDlg(TRUE, nullptr, nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
-//		_T("place files(*.bmp)|*.bmp"));
-//	
-//	CString strPath;
-//	if (IDOK == fileDlg.DoModal())
-//		strPath = fileDlg.GetPathName();
-//	else
-//		return;
-//	
-//	// 加载位图
-//	HBITMAP hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), strPath,
-//		IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_DEFAULTSIZE);
-//	
-//	// 赋值成员
-//	m_bitmap = hBitmap;
-//}
-
 
 BOOL CagvScheduleServerDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
@@ -177,4 +172,203 @@ BOOL CagvScheduleServerDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	m_bitmap = hBitmap;
 
 	return TRUE;
+}
+
+
+
+void CagvScheduleServerDoc::OnUpdateFileStart(CCmdUI *pCmdUI)
+{
+	// TODO: 在此添加命令更新用户界面处理程序代码
+	if (EDIT_IMPORT == m_uEditPushStatus 
+		|| EDIT_SET == m_uEditPushStatus)
+		pCmdUI->Enable();
+	else
+		pCmdUI->Enable(0);
+
+	if (m_bitmap)
+		pCmdUI->Enable();
+}
+
+
+
+void CagvScheduleServerDoc::OnUpdateEditSetxy(CCmdUI *pCmdUI)
+{
+	// TODO: 在此添加命令更新用户界面处理程序代码
+	if (m_bitmap)
+		pCmdUI->Enable();
+	else
+		pCmdUI->Enable(0);
+
+	if (EDIT_IMPORT == m_uEditPushStatus)
+		pCmdUI->Enable(0);
+}
+
+
+void CagvScheduleServerDoc::OnEditSetxy()
+{
+	// TODO: 在此添加命令处理程序代码
+	m_uEditPushStatus = EDIT_SET;
+}
+
+
+void CagvScheduleServerDoc::OnEditImportxy()
+{
+	// TODO: 在此添加命令处理程序代码
+	m_uEditPushStatus = EDIT_IMPORT; // 点击了导入坐标
+
+	CFileDialog dlg(TRUE, _T(".txt"), 0, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
+		_T("TXT Files(*.txt)|*.txt||"));
+	if (IDOK == dlg.DoModal())
+	{
+		CString strPath = dlg.GetPathName();
+		CStdioFile file(strPath,  CFile::modeRead);
+		m_mapPoint.RemoveAll();
+
+		// 点号 （坐标）->  2\t233,37
+		CString strLine, strNo, strPtX, strPtY;
+		while (file.ReadString(strLine))
+		{
+			int pos1 = strLine.Find(_T("\t"));
+			strNo = strLine.Left(pos1);
+			int pos2 = strLine.Find(_T(","));
+			strPtX = strLine.Mid(pos1 + 1, pos2 - pos1);
+			strPtY = strLine.Mid(pos2 + 1, strLine.GetLength() - pos2);
+
+			m_mapPoint[_ttoi(strNo)] = CPoint(_ttoi(strPtX), _ttoi(strPtY));
+		}
+
+		//TCHAR szExePath[MAX_PATH];
+		//GetModuleFileName(nullptr, szExePath, MAX_PATH);
+		//CString str(szExePath);
+		//int strPos = str.ReverseFind(_T('\\'));
+		//str.Truncate(strPos);
+		//str += _T("\\导入的点号&坐标.txt");
+
+		//CStdioFile file1(str,
+		//	CFile::modeWrite | CFile::modeCreate /*| CFile::typeText*/);
+		//POSITION pos = m_mapPoint.GetStartPosition();
+		//unsigned key;
+		//CPoint pt;
+		//CString str1;
+		//while (pos)
+		//{
+		//	m_mapPoint.GetNextAssoc(pos, key, pt);
+		//	str1.Format(_T("%d\t%d,%d\n"), key, pt.x, pt.y);
+		//	file1.WriteString(str1);
+		//}
+
+	}
+}
+
+
+void CagvScheduleServerDoc::OnUpdateEditImportxy(CCmdUI *pCmdUI)
+{
+	// TODO: 在此添加命令更新用户界面处理程序代码
+	if (m_bitmap)
+		pCmdUI->Enable();
+	else
+		pCmdUI->Enable(0);
+	
+}
+
+
+void CagvScheduleServerDoc::OnEditResetxy()
+{
+	// TODO: 在此添加命令处理程序代码
+	m_mapPoint.RemoveAll();
+	POSITION pos = GetFirstViewPosition();
+	CagvScheduleServerView* pView = (CagvScheduleServerView*)GetNextView(pos);
+	pView->m_uCurNum = 0;
+}
+
+
+void CagvScheduleServerDoc::OnUpdateEditResetxy(CCmdUI *pCmdUI)
+{
+	// TODO: 在此添加命令更新用户界面处理程序代码
+	if (m_mapPoint.IsEmpty())
+		pCmdUI->Enable(0);
+	else
+		pCmdUI->Enable();
+
+	if (1 == m_uEditPushStatus)
+		pCmdUI->Enable(0);
+}
+
+
+void CagvScheduleServerDoc::OnEditExport()
+{
+	// TODO: 在此添加命令处理程序代码
+	TCHAR szExePath[MAX_PATH];
+	GetModuleFileName(nullptr, szExePath, MAX_PATH);
+	CString str(szExePath);
+	int strPos = str.ReverseFind(_T('\\'));
+	str.Truncate(strPos);
+	str += _T("\\点号&坐标.txt");
+
+	CStdioFile file(str,
+		CFile::modeWrite | CFile::modeCreate /*| CFile::typeText*/);
+
+	POSITION pos = m_mapPoint.GetStartPosition();
+	unsigned key;
+	CPoint pt;
+	//file.WriteString(_T("点号\t坐标\n"));
+	while (pos)
+	{
+		m_mapPoint.GetNextAssoc(pos, key, pt);
+		str.Format(_T("%d\t%d,%d\n"), key, pt.x, pt.y);
+		file.WriteString(str);
+	}
+
+	file.Close();
+	m_mapPoint.RemoveAll();
+	m_uEditPushStatus = EDIT_DEFAULT;
+	return;
+}
+
+
+void CagvScheduleServerDoc::OnUpdateEditExport(CCmdUI *pCmdUI)
+{
+	// TODO: 在此添加命令更新用户界面处理程序代码
+	if (m_mapPoint.IsEmpty())
+		pCmdUI->Enable(0);
+	else
+		pCmdUI->Enable();
+}
+
+
+void CagvScheduleServerDoc::OnFileStart()
+{
+	// TODO: 在此添加命令处理程序代码
+	AfxSocketInit();
+	m_pListenSocket = new CListenSocket;
+	//创建套接字
+	if (m_pListenSocket->Create(SVR_PORT))
+	{
+		//开始监听
+		if (!m_pListenSocket->Listen(100))
+		{
+			delete m_pListenSocket;
+			m_pListenSocket = NULL;
+			AfxMessageBox(_T("监听套接字失败！"));
+			return;
+		}
+	}else
+	{
+		delete m_pListenSocket;
+		m_pListenSocket = NULL;
+		AfxMessageBox(_T("创建监听套接字失败！"));
+		return;
+	}
+
+}
+
+
+void CagvScheduleServerDoc::OnWindowSchedule()
+{
+	// TODO: 在此添加命令处理程序代码
+	CScheduleDlg dlg(this);
+	if (IDOK == dlg.DoModal())
+	{
+		
+	}
 }

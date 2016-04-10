@@ -23,6 +23,9 @@
 IMPLEMENT_DYNCREATE(CagvScheduleServerView, CView)
 
 BEGIN_MESSAGE_MAP(CagvScheduleServerView, CView)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CagvScheduleServerView 构造/析构
@@ -47,7 +50,7 @@ BOOL CagvScheduleServerView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CagvScheduleServerView 绘制
 
-void CagvScheduleServerView::OnDraw(CDC* /*pDC*/)
+void CagvScheduleServerView::OnDraw(CDC* pDC)
 {
 	CagvScheduleServerDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -55,32 +58,32 @@ void CagvScheduleServerView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: 在此处为本机数据添加绘制代码
-	//// 获取位图尺寸
-	//CBitmap bmpobj;
-	//bmpobj.Attach(hBitmap);
+	static RECT rcClient;
+	GetClientRect(&rcClient);
 
-	//BITMAP bm;
-	//bmpobj.GetBitmap(&bm);
+	HBITMAP& hBitmap = pDoc->GetBitmap();
+	if (hBitmap)
+	{
+		// 获取位图尺寸
+		CBitmap bmpobj;
+		bmpobj.Attach(hBitmap);
 
-	//CView* pView = GetActiveView();
+		BITMAP bm;
+		bmpobj.GetBitmap(&bm);
 
-	//// 改变mainframe大小
-	//int cyMenu = GetSystemMetrics(SM_CYMENU);		// 菜单&状态
-	//int cyCaption = GetSystemMetrics(SM_CYCAPTION); // 标题
+		//创建内存dc
+		CDC hdcMem/*, memdc2*/;
+		hdcMem.CreateCompatibleDC(pDC);
 
-	////MoveWindow(0, 0, bm.bmWidth + cyMenu, bm.bmHeight + 2 * cyMenu + cyCaption);
-	////CenterWindow();
-
-	////创建内存dc
-	//CDC* pdc = pView->GetDC();
-	//CDC hdcMem;
-	//hdcMem.CreateCompatibleDC(pdc);
-
-	//// 选入位图
-	//hdcMem.SelectObject(&bmpobj);
-
-	//// 贴图
-	//pdc->BitBlt(0, 0, bm.bmWidth, bm.bmHeight, &hdcMem, 0, 0, SRCCOPY);
+		// 选入位图
+		hdcMem.SelectObject(&bmpobj);
+		
+		// 贴图
+		pDC->StretchBlt(0, 0, rcClient.right, rcClient.bottom, 
+			&hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+		bmpobj.Detach();
+	}
+	
 }
 
 
@@ -106,3 +109,89 @@ CagvScheduleServerDoc* CagvScheduleServerView::GetDocument() const // 非调试版本
 
 
 // CagvScheduleServerView 消息处理程序
+
+
+void CagvScheduleServerView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	auto pDoc = GetDocument();
+	if (EDIT_SET == pDoc->GetEditPushStatus())
+	{
+		++m_uCurNum;
+		// 保存点的坐标
+		pDoc->m_mapPoint[m_uCurNum] = point;
+	}
+
+	CView::OnLButtonDown(nFlags, point);
+}
+
+
+void CagvScheduleServerView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	auto pDoc = GetDocument();
+	if (EDIT_SET == pDoc->GetEditPushStatus())
+	{
+		if (pDoc->m_mapPoint.IsEmpty()) {
+			m_uCurNum = 0;
+			return;
+		}
+
+		pDoc->m_mapPoint.RemoveKey(unsigned(pDoc->m_mapPoint.GetCount()));
+		--m_uCurNum;
+	}
+
+	CView::OnRButtonDown(nFlags, point);
+}
+
+
+void CagvScheduleServerView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	auto pDoc = GetDocument();
+	if (EDIT_SET == pDoc->GetEditPushStatus())
+	{
+		CDC* pDC = GetDC();
+		CDC memdc1, memdc2;
+		memdc1.CreateCompatibleDC(pDC);
+		memdc2.CreateCompatibleDC(pDC);
+
+		// 获取区域大小
+		RECT rc;
+		GetClientRect(&rc);
+
+		CBitmap bitmapSrc, bitmap2;
+		bitmapSrc.Attach(pDoc->GetBitmap());
+		bitmap2.CreateCompatibleBitmap(pDC, rc.right, rc.bottom);
+
+		memdc1.SelectObject(&bitmap2);	// 画布大小是客户区大小
+		memdc2.SelectObject(&bitmapSrc);
+
+		BITMAP bm;
+		bitmapSrc.GetBitmap(&bm);
+
+		// 在memedc1上画图，相当于在客户区上画
+		memdc1.StretchBlt(0, 0, rc.right, rc.bottom,
+			&memdc2, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
+
+		// 显示数字
+		POSITION pos = pDoc->m_mapPoint.GetStartPosition();
+		unsigned key;
+		CPoint pt;
+		CString strMsg;
+		//memdc1.SetBkMode(TRANSPARENT);
+		while (pos)
+		{
+			pDoc->m_mapPoint.GetNextAssoc(pos, key, pt);
+			strMsg.Format(_T("%d"), key);
+			memdc1.TextOutW(pt.x, pt.y, strMsg);
+		}
+
+		pDC->StretchBlt(0, 0, rc.right, rc.bottom,
+			&memdc1, 0, 0, rc.right, rc.bottom, SRCCOPY);
+
+		bitmapSrc.Detach();
+	}
+
+	CView::OnMouseMove(nFlags, point);
+}
