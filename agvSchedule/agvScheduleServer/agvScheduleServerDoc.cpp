@@ -42,6 +42,7 @@ ON_COMMAND(ID_EDIT_EXPORT, &CagvScheduleServerDoc::OnEditExport)
 ON_UPDATE_COMMAND_UI(ID_EDIT_EXPORT, &CagvScheduleServerDoc::OnUpdateEditExport)
 ON_COMMAND(ID_FILE_START, &CagvScheduleServerDoc::OnFileStart)
 ON_COMMAND(ID_WINDOW_SCHEDULE, &CagvScheduleServerDoc::OnWindowSchedule)
+ON_UPDATE_COMMAND_UI(ID_WINDOW_SCHEDULE, &CagvScheduleServerDoc::OnUpdateWindowSchedule)
 END_MESSAGE_MAP()
 
 
@@ -51,7 +52,7 @@ CagvScheduleServerDoc::CagvScheduleServerDoc()
 {
 	// TODO: 在此添加一次性构造代码
 	m_bitmap = nullptr;
-
+	m_pListenSocket = nullptr;
 }
 
 CagvScheduleServerDoc::~CagvScheduleServerDoc()
@@ -340,7 +341,12 @@ void CagvScheduleServerDoc::OnFileStart()
 {
 	// TODO: 在此添加命令处理程序代码
 	AfxSocketInit();
-	m_pListenSocket = new CListenSocket;
+
+	// 赋值view DC
+	POSITION pos = GetFirstViewPosition();
+	CagvScheduleServerView* pView = (CagvScheduleServerView*)GetNextView(pos);
+
+	m_pListenSocket = new CListenSocket(pView);
 	//创建套接字
 	if (m_pListenSocket->Create(SVR_PORT))
 	{
@@ -371,4 +377,14 @@ void CagvScheduleServerDoc::OnWindowSchedule()
 	{
 		
 	}
+}
+
+
+void CagvScheduleServerDoc::OnUpdateWindowSchedule(CCmdUI *pCmdUI)
+{
+	// TODO: 在此添加命令更新用户界面处理程序代码
+	if (!m_pListenSocket)
+		pCmdUI->Enable(0);
+	else
+		pCmdUI->Enable(1);
 }

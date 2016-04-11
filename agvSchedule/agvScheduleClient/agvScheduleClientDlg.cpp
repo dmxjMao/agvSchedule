@@ -3,6 +3,7 @@
 //
 
 #include "stdafx.h"
+#include <vector>
 #include "agvScheduleClient.h"
 #include "agvScheduleClientDlg.h"
 #include "afxdialogex.h"
@@ -13,6 +14,116 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
+
+// 给小车一条指定的路线:小车1 （1-2-3）
+static std::vector<Msg_E1>  g_vecE1;
+// 小车2：（2-3-4-26-24）
+static std::vector<Msg_E1>	g_vecE1No2;
+
+void setVecE1()
+{
+	/*
+	E1: agv上报 200ms
+	45 31
+	01 车号
+	01 M1消息标签
+	01 M2消息标签
+	01 M6消息标签
+	00 01 当前所走段距离(mm)
+	00 01 当前段号
+	00 01 当前点号
+	00 01 agc状态位
+	01 agc错误码
+	01 预留
+	00 01 当前速度mm/s
+	01 移动完成&操作完成
+	00 01 当前任务号
+	共21字节
+	*/
+	extern volatile BYTE g_lAGVNo;
+	Msg_E1 e1;
+	if (1 == g_lAGVNo)
+	{
+		e1.agvno = g_lAGVNo;
+
+		e1.curPoint = 1;
+		e1.curDist = 1; // mm
+
+		for (int i = 0; i < 5; ++i)
+		{
+			// 在1-2段走1s 5次 5mm 1-2点41个像素，每次走1/5 8像素
+			g_vecE1.push_back(e1);
+			++e1.curDist;
+		}
+
+		e1.curPoint = 2;
+		e1.curDist = 1;
+		for (int i = 0; i < 5; ++i)
+		{
+			// 在2-3段走1s 5次 5mm 1-2点41个像素，每次走1/5 8像素
+			g_vecE1.push_back(e1);
+			++e1.curDist;
+		}
+
+		e1.curPoint = 3;
+		e1.curDist = 0;
+		g_vecE1.push_back(e1);
+	}
+
+	if (2 == g_lAGVNo) {
+		e1.curPoint = 2;
+		e1.curDist = 1; // mm
+
+		for (int i = 0; i < 5; ++i)
+		{
+			// 在1-2段走1s 5次 5mm 1-2点41个像素，每次走1/5 8像素
+			g_vecE1No2.push_back(e1);
+			++e1.curDist;
+		}
+
+		e1.curPoint = 2;
+		e1.curDist = 1;
+		for (int i = 0; i < 5; ++i)
+		{
+			// 在2-3段走1s 5次 5mm 1-2点41个像素，每次走1/5 8像素
+			g_vecE1No2.push_back(e1);
+			++e1.curDist;
+		}
+
+		e1.curPoint = 3;
+		e1.curDist = 1;
+		for (int i = 0; i < 5; ++i)
+		{
+			// 在2-3段走1s 5次 5mm 1-2点41个像素，每次走1/5 8像素
+			g_vecE1No2.push_back(e1);
+			++e1.curDist;
+		}
+
+		e1.curPoint = 4;
+		e1.curDist = 1;
+		for (int i = 0; i < 5; ++i)
+		{
+			// 在2-3段走1s 5次 5mm 1-2点41个像素，每次走1/5 8像素
+			g_vecE1No2.push_back(e1);
+			++e1.curDist;
+		}
+
+		e1.curPoint = 26;
+		e1.curDist = 1;
+		for (int i = 0; i < 5; ++i)
+		{
+			// 在2-3段走1s 5次 5mm 1-2点41个像素，每次走1/5 8像素
+			g_vecE1No2.push_back(e1);
+			++e1.curDist;
+		}
+
+		e1.curPoint = 24;
+		e1.curDist = 0;
+		g_vecE1No2.push_back(e1);
+	}
+
+}
 
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
@@ -190,7 +301,9 @@ void CagvScheduleClientDlg::OnClickedButtonConnect()
 	e1.agvno = g_lAGVNo;
 	e1.curPoint = e1.agvno;
 
-	m_pAgvSocket->Send(&e1, sizeof(e1));
+	int sendBytes = m_pAgvSocket->Send(&e1, sizeof(e1));
+	//m_pAgvSocket->AsyncSelect();
+	setVecE1();
 
 	SetTimer(1, 200, nullptr);
 }
@@ -213,10 +326,24 @@ void CagvScheduleClientDlg::OnClickedButtonQuit()
 void CagvScheduleClientDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	extern volatile BYTE g_lAGVNo;
+	static size_t i = 0;
 	if (1 == nIDEvent)
 	{
-		Msg_E1 e1;
-		
+		if (m_pAgvSocket->m_bRecv) {
+			if (g_lAGVNo == 1) {
+				int sendBytes = m_pAgvSocket->Send(&g_vecE1[i++], sizeof(Msg_E1));
+				if (i == 11)
+					KillTimer(1);
+			}
+				
+			if (g_lAGVNo == 2) {
+				m_pAgvSocket->Send(&g_vecE1No2[i++], sizeof(Msg_E1));
+				if (i == 25)
+					KillTimer(1);
+			}
+			//m_pAgvSocket->AsyncSelect();
+		}	
 	}
 
 	CDialogEx::OnTimer(nIDEvent);

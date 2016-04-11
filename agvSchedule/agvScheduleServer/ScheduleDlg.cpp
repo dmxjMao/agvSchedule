@@ -131,16 +131,20 @@ void CScheduleDlg::OnBnClickedOk()
 	while (pos)
 	{
 		pClient = (CClientSocket*)clientList.GetNext(pos);
-		if (pClient->m_agvno == agvno)
+		if (pClient->m_e1.agvno == agvno)
 			break;
 	}
 	
 	// 计算最短路径
-	Dijkstra(pClient->m_curPointNo, targetno);
-	auto& vecRoute = m_baseGraph->GetRoute();
+	if (!pClient) {
+		AfxMessageBox(_T("还没用任何小车连接！"));
+		return;
+	}
+	Dijkstra(pClient->m_e1.curPoint, targetno);
+	auto& vecRoute = m_pDoc->m_vecRoute;
 	m_m1.secnum = (BYTE)vecRoute.size() - 1; // 段数
 	// 可行走段
-	auto& mapSideNo = m_baseGraph->GetSideNoMap(); //<段，段号>
+	auto& mapSideNo = m_pDoc->m_sideNo; //<段，段号>
 	auto it = vecRoute.begin();
 	int prevSide = *it;
 	std::advance(it, 1);
@@ -152,11 +156,13 @@ void CScheduleDlg::OnBnClickedOk()
 		m_m1.secno[i++] = sideNo;
 	}
 
+	Msg_M1M2M6 m1m2m6;
+	m1m2m6.m1 = m_m1;
+	m1m2m6.m2 = m_m2;
+	m1m2m6.m6 = m_m6;
 
 	// 给小车发送M1,M2,M6消息
-	pClient->Send(&m_m6, sizeof(Msg_M6));
-	pClient->Send(&m_m2, sizeof(Msg_M2));
-	pClient->Send(&m_m1, sizeof(Msg_M1));
+	pClient->Send(&m1m2m6, sizeof(m1m2m6));
 
 	CDialogEx::OnOK();
 }
@@ -184,6 +190,10 @@ BOOL CScheduleDlg::Dijkstra(UINT16 src, UINT16 des)
 	//TRACE("Target(%d)\n", TARGET_VERTEX);
 	m_baseGraph->GetRoute().push_back(des);
 	m_baseGraph->ResetVertex(); // 重置关系，解决只能2-3，不能3-2的问题
+
+	// 传递到doc中去
+	m_pDoc->m_vecRoute = std::move(m_baseGraph->GetRoute());
+	m_pDoc->m_sideNo = std::move(m_baseGraph->GetSideNoMap());
 
 	return TRUE;
 }

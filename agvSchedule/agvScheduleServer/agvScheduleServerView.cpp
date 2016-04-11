@@ -58,7 +58,7 @@ void CagvScheduleServerView::OnDraw(CDC* pDC)
 		return;
 
 	// TODO: 在此处为本机数据添加绘制代码
-	static RECT rcClient;
+	RECT rcClient;
 	GetClientRect(&rcClient);
 
 	HBITMAP& hBitmap = pDoc->GetBitmap();

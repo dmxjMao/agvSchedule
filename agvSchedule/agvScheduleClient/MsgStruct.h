@@ -18,6 +18,14 @@ struct Msg_M6
 	BYTE agvno = 0;					// AGV车号
 	UINT16 taskno = 0;				// 任务编号
 	UINT16 target = 0;				// 任务目标点
+
+	Msg_M6& operator=(const Msg_M6& m6) {
+		tag = m6.tag;
+		agvno = m6.agvno;
+		taskno = m6.taskno;
+		target = m6.target;
+		return *this;
+	}
 };
 
 /*
@@ -40,6 +48,15 @@ struct Msg_M1
 	UINT16 taskno = 0;
 	BYTE secnum = 0;			// 段的数目
 	UINT16 secno[25] = { 0 };
+
+	Msg_M1& operator=(const Msg_M1& m1) {
+		tag = m1.tag;
+		agvno = m1.agvno;
+		taskno = m1.taskno;
+		secnum = m1.secnum;
+		memcpy_s(secno, 50, m1.secno, 50);
+		return *this;
+	}
 };
 
 
@@ -60,6 +77,14 @@ struct Msg_M2
 	BYTE agvno = 0;
 	UINT16 taskno = 0;
 	UINT16 taskopcode = 0;			// 任务操作码
+
+	Msg_M2& operator=(const Msg_M2& m2) {
+		tag = m2.tag;
+		agvno = m2.agvno;
+		taskno = m2.taskno;
+		taskopcode = m2.taskopcode;
+		return *this;
+	}
 };
 
 
@@ -98,4 +123,13 @@ struct Msg_E1
 	UINT16 curSpeed = 0;
 	BYTE moveOrOpt = 0;
 	UINT16 curTask = 0;
+};
+
+
+
+struct Msg_M1M2M6
+{
+	Msg_M1 m1;
+	Msg_M2 m2;
+	Msg_M6 m6;
 };

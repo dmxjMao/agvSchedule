@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include <map>
+#include <vector>
 
 /* 菜单更新：
 初始0；
@@ -26,9 +28,14 @@ private:
 	HBITMAP				m_bitmap;
 	EDIT_PUSH_STATUS	m_uEditPushStatus = EDIT_DEFAULT;
 	
-public:
-	CMap<unsigned, unsigned, CPoint, CPoint> m_mapPoint;	// (点号，坐标)的映射
+public:	
+	std::map<std::pair<int, int>, unsigned> m_sideNo;			// 保存段的编号	
+	std::vector<int>		m_vecRoute;							// 行走路线
+	CMap<unsigned, unsigned, CPoint, CPoint> m_mapPoint;		// (点号，坐标)的映射
 	CListenSocket*		m_pListenSocket;
+	//CDC*				m_pDC;				//视图的DC
+
+
 
 // 操作
 public:
@@ -86,4 +93,5 @@ public:
 	afx_msg void OnUpdateEditExport(CCmdUI *pCmdUI);
 	afx_msg void OnFileStart();
 	afx_msg void OnWindowSchedule();
+	afx_msg void OnUpdateWindowSchedule(CCmdUI *pCmdUI);
 };

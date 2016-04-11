@@ -4,7 +4,7 @@
 
 #pragma once
 
-
+class CagvScheduleServerDoc;
 class CagvScheduleServerView : public CView
 {
 // Êý¾Ý
