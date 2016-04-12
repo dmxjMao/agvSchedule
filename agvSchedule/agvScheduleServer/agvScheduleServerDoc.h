@@ -94,4 +94,8 @@ public:
 	afx_msg void OnFileStart();
 	afx_msg void OnWindowSchedule();
 	afx_msg void OnUpdateWindowSchedule(CCmdUI *pCmdUI);
+	afx_msg void OnWindowTasklist();
+	afx_msg void OnWindowCarlist();
+	afx_msg void OnWindowLog();
+	afx_msg void OnWindowError();
 };

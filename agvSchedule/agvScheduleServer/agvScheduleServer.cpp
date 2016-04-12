@@ -10,6 +10,7 @@
 
 #include "agvScheduleServerDoc.h"
 #include "agvScheduleServerView.h"
+#include "LoginDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -19,7 +20,7 @@
 // CagvScheduleServerApp
 
 BEGIN_MESSAGE_MAP(CagvScheduleServerApp, CWinApp)
-//	ON_COMMAND(ID_APP_ABOUT, &CagvScheduleServerApp::OnAppAbout)
+	ON_COMMAND(ID_APP_ABOUT, &CagvScheduleServerApp::OnAppAbout)
 	// 基于文件的标准文档命令
 	ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
@@ -47,6 +48,10 @@ CagvScheduleServerApp theApp;
 
 BOOL CagvScheduleServerApp::InitInstance()
 {
+	// 登录
+	CLoginDlg dlgLogin;
+	dlgLogin.DoModal();
+
 	CWinApp::InitInstance();
 
 

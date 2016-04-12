@@ -69,7 +69,9 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\agvScheduleServer.ico"
+
 IDR_agvScheduleServTYPE ICON                    "res\\agvScheduleServerDoc.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -81,7 +83,8 @@ BEGIN
     POPUP "文件(&F)"
     BEGIN
         MENUITEM "打开(&O)...\tCtrl+O",           ID_FILE_OPEN
-        MENUITEM "启动服务器(&S)\tCtrl+S",           ID_FILE_START
+        MENUITEM "启动(&S)\tCtrl+S",              ID_FILE_START
+        MENUITEM "权限控制",                        ID_FILE_AUTHORITY
         MENUITEM SEPARATOR
         MENUITEM "最近的文件",                       ID_FILE_MRU_FILE1, GRAYED
         MENUITEM SEPARATOR
@@ -94,9 +97,13 @@ BEGIN
         MENUITEM "导入坐标",                        ID_EDIT_IMPORTXY
         MENUITEM "导出坐标",                        ID_EDIT_EXPORT
     END
-    POPUP "窗口(&W)"
+    POPUP "窗口(&V)"
     BEGIN
         MENUITEM "调度窗口",                        ID_WINDOW_SCHEDULE
+        MENUITEM "任务列表",                        ID_WINDOW_TASKLIST
+        MENUITEM "车辆列表",                        ID_WINDOW_CARLIST
+        MENUITEM "执行日志",                        ID_WINDOW_LOG
+        MENUITEM "报错信息",                        ID_WINDOW_ERROR
     END
     POPUP "帮助(&H)"
     BEGIN
@@ -158,6 +165,53 @@ BEGIN
     COMBOBOX        IDC_COMBO_OPT,51,77,48,62,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "操作：",IDC_STATIC,14,79,25,8
     PUSHBUTTON      "确认",IDOK,7,108,36,14
+END
+
+IDD_DIALOG_TASKLIST DIALOGEX 0, 0, 557, 231
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "任务列表"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,543,217
+END
+
+IDD_DIALOG_CARLIST DIALOGEX 0, 0, 551, 226
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "车辆列表"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,537,212
+END
+
+IDD_DIALOG_LOG DIALOGEX 0, 0, 557, 231
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "执行日志"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,543,217
+END
+
+IDD_DIALOG_ERROR DIALOGEX 0, 0, 555, 230
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "报警日志"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "已处理",IDOK,51,209,41,14
+    PUSHBUTTON      "取消",IDCANCEL,184,209,41,14
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,541,200
+END
+
+IDD_DIALOG_LOGIN DIALOGEX 0, 0, 147, 95
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "登录"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "登录",IDOK,33,65,32,14
+    PUSHBUTTON      "退出",IDCANCEL,74,65,32,14
+    LTEXT           "账号：",IDC_STATIC,17,19,25,8
+    LTEXT           "密码：",IDC_STATIC,17,37,25,8
+    EDITTEXT        IDC_EDIT_USECOUNT,51,17,80,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PASSWD,51,37,80,14,ES_PASSWORD | ES_AUTOHSCROLL
 END
 
 
@@ -223,6 +277,46 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 122
     END
+
+    IDD_DIALOG_TASKLIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 550
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 224
+    END
+
+    IDD_DIALOG_CARLIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 544
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 219
+    END
+
+    IDD_DIALOG_LOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 550
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 224
+    END
+
+    IDD_DIALOG_ERROR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 548
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 223
+    END
+
+    IDD_DIALOG_LOGIN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 140
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -233,6 +327,31 @@ END
 //
 
 IDD_DIALOG_SCHEDULE AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_TASKLIST AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_CARLIST AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_LOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_ERROR AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_LOGIN AFX_DIALOG_LAYOUT
 BEGIN
     0
 END

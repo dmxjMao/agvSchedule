@@ -188,7 +188,11 @@
     <ClInclude Include="agvScheduleServer.h" />
     <ClInclude Include="agvScheduleServerDoc.h" />
     <ClInclude Include="agvScheduleServerView.h" />
+    <ClInclude Include="CarListDlg.h" />
+    <ClInclude Include="ErrorDlg.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="LogDlg.h" />
+    <ClInclude Include="LoginDlg.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MsgStruct.h" />
     <ClInclude Include="NetSocketDef.h" />
@@ -198,12 +202,17 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TableEntry.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TaskList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="agvScheduleServer.cpp" />
     <ClCompile Include="agvScheduleServerDoc.cpp" />
     <ClCompile Include="agvScheduleServerView.cpp" />
+    <ClCompile Include="CarListDlg.cpp" />
+    <ClCompile Include="ErrorDlg.cpp" />
     <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="LogDlg.cpp" />
+    <ClCompile Include="LoginDlg.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="NetSocketDef.cpp" />
     <ClCompile Include="ScheduleDlg.cpp" />
@@ -213,6 +222,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TaskList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="agvScheduleServer.rc" />

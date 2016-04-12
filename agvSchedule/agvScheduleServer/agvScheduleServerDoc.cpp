@@ -15,6 +15,10 @@
 
 #include "NetSocketDef.h"
 #include "ScheduleDlg.h"
+#include "TaskList.h"
+#include "CarListDlg.h"
+#include "LogDlg.h"
+#include "ErrorDlg.h"
 
 #include <propkey.h>
 
@@ -43,6 +47,10 @@ ON_UPDATE_COMMAND_UI(ID_EDIT_EXPORT, &CagvScheduleServerDoc::OnUpdateEditExport)
 ON_COMMAND(ID_FILE_START, &CagvScheduleServerDoc::OnFileStart)
 ON_COMMAND(ID_WINDOW_SCHEDULE, &CagvScheduleServerDoc::OnWindowSchedule)
 ON_UPDATE_COMMAND_UI(ID_WINDOW_SCHEDULE, &CagvScheduleServerDoc::OnUpdateWindowSchedule)
+ON_COMMAND(ID_WINDOW_TASKLIST, &CagvScheduleServerDoc::OnWindowTasklist)
+ON_COMMAND(ID_WINDOW_CARLIST, &CagvScheduleServerDoc::OnWindowCarlist)
+ON_COMMAND(ID_WINDOW_LOG, &CagvScheduleServerDoc::OnWindowLog)
+ON_COMMAND(ID_WINDOW_ERROR, &CagvScheduleServerDoc::OnWindowError)
 END_MESSAGE_MAP()
 
 
@@ -387,4 +395,36 @@ void CagvScheduleServerDoc::OnUpdateWindowSchedule(CCmdUI *pCmdUI)
 		pCmdUI->Enable(0);
 	else
 		pCmdUI->Enable(1);
+}
+
+
+void CagvScheduleServerDoc::OnWindowTasklist()
+{
+	// TODO: 在此添加命令处理程序代码
+	CTaskList tasklist;
+	tasklist.DoModal();
+}
+
+
+void CagvScheduleServerDoc::OnWindowCarlist()
+{
+	// TODO: 在此添加命令处理程序代码
+	CCarListDlg carlist;
+	carlist.DoModal();
+}
+
+
+void CagvScheduleServerDoc::OnWindowLog()
+{
+	// TODO: 在此添加命令处理程序代码
+	CLogDlg logdlg;
+	logdlg.DoModal();
+}
+
+
+void CagvScheduleServerDoc::OnWindowError()
+{
+	// TODO: 在此添加命令处理程序代码
+	CErrorDlg errdlg;
+	errdlg.DoModal();
 }

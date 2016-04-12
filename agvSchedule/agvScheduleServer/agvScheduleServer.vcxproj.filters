@@ -22,6 +22,12 @@
     <Filter Include="源文件\Dijkstra">
       <UniqueIdentifier>{43f5c124-ad74-4b60-abce-bafab13ff79b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\windows">
+      <UniqueIdentifier>{16eb928e-b4a7-4d2b-ad3c-e52775160f26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\windows">
+      <UniqueIdentifier>{980e60c2-92ee-4bf1-a4fd-603c1c9874b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -54,9 +60,6 @@
     <ClInclude Include="MsgStruct.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ScheduleDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="repo3.h">
       <Filter>头文件\map</Filter>
     </ClInclude>
@@ -65,6 +68,24 @@
     </ClInclude>
     <ClInclude Include="TableEntry.h">
       <Filter>头文件\Dijkstra</Filter>
+    </ClInclude>
+    <ClInclude Include="ScheduleDlg.h">
+      <Filter>头文件\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskList.h">
+      <Filter>头文件\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="CarListDlg.h">
+      <Filter>头文件\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="LogDlg.h">
+      <Filter>头文件\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorDlg.h">
+      <Filter>头文件\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginDlg.h">
+      <Filter>头文件\windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,11 +107,26 @@
     <ClCompile Include="NetSocketDef.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ScheduleDlg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Graph.cpp">
       <Filter>源文件\Dijkstra</Filter>
+    </ClCompile>
+    <ClCompile Include="ScheduleDlg.cpp">
+      <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskList.cpp">
+      <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="CarListDlg.cpp">
+      <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="LogDlg.cpp">
+      <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorDlg.cpp">
+      <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginDlg.cpp">
+      <Filter>源文件\windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
