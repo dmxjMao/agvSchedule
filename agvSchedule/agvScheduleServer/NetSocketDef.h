@@ -25,7 +25,8 @@ class CClientSocket : public CSocket
 {
 public:
 	Msg_E1			m_e1;				// 最近的一条E1消息
-	CListenSocket*	m_pListenSocket;	// 回值监听套接字
+	CPoint			m_pt;				// 最近一条E1消息对应的小车坐标
+	CListenSocket*	m_pListenSocket;	// 回指监听套接字
 	CagvScheduleServerView* m_pView;
 
 public:
@@ -34,5 +35,5 @@ public:
 	virtual void OnSend(int nErrorCode);
 
 private:
-	void getAgvXY(const Msg_E1& e1, CPoint& pt);
+	void getAgvXY(CClientSocket* pClient, CPoint& pt);
 };

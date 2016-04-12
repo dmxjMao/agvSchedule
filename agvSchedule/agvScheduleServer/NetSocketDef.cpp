@@ -79,7 +79,7 @@ void CClientSocket::OnReceive(int nErrorCode)
 	while (pos) { // 将所有的点画出来
 		CClientSocket* pClient = (CClientSocket*)clientList.GetNext(pos);
 		// 获取小车当前所在点的坐标
-		getAgvXY(pClient->m_e1, curAgvXY);
+		getAgvXY(pClient, curAgvXY);
 		// 画一个圆并显示数字
 		memdc1.Ellipse(curAgvXY.x - 4, curAgvXY.y - 4, curAgvXY.x + 4, curAgvXY.y + 4);	
 		strAgvNo.Format(_T("%d"), pClient->m_e1.agvno);
@@ -110,7 +110,7 @@ void CClientSocket::OnSend(int nErrorCode)
 }
 
 
-void CClientSocket::getAgvXY(const Msg_E1& e1, CPoint& pt)
+void CClientSocket::getAgvXY(CClientSocket* pClient, CPoint& pt)
 {
 	/*
 	E1: agv上报 200ms
@@ -130,23 +130,36 @@ void CClientSocket::getAgvXY(const Msg_E1& e1, CPoint& pt)
 	00 01 当前任务号
 	共21字节
 	*/
+	const Msg_E1& e1 = pClient->m_e1;
 	auto pDoc = m_pView->GetDocument();
 	auto& mapSideNo = pDoc->m_sideNo;	// 段，段号
 	auto& mapPoint = pDoc->m_mapPoint;	// 点号，坐标									
 	auto& vecRoute = pDoc->m_vecRoute;	// 行走路线
 	
 	CPoint curPt;
-	mapPoint.Lookup(e1.curPoint, curPt); //当前点坐标
+	mapPoint.Lookup(e1.curPoint, curPt); 
+	// 如果当前E1不是该套接字的E1
+	if (e1.agvno != m_e1.agvno) {
+		pt = pClient->m_pt;
+		return;
+	}
+
+	// 如果是小车初始位置
 	if (vecRoute.empty()) {
 		pt = curPt;
+		m_pt = pt;
 		return;
-	}	
-
+	}
+	
 	UINT16 nxPtNo; // 下一个点号
 	auto curPtIter = std::find(vecRoute.begin(), vecRoute.end(), e1.curPoint);
 	std::advance(curPtIter, 1);
-	if (curPtIter == vecRoute.end())
+	if (curPtIter == vecRoute.end()) {
+		pt = curPt;
+		m_pt = pt;
 		return;
+	}
+		
 
 	nxPtNo = (UINT16)*curPtIter;
 	CPoint nxPt; // 下一个点号的坐标
@@ -180,4 +193,6 @@ void CClientSocket::getAgvXY(const Msg_E1& e1, CPoint& pt)
 		bPositive ? pt.y = curPt.y + curDist : pt.y = curPt.y - curDist;
 		pt.x = curPt.x;	
 	}
+
+	pClient->m_pt = pt;
 }

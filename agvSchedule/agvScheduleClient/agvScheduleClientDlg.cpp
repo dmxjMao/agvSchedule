@@ -41,11 +41,12 @@ void setVecE1()
 	00 01 当前任务号
 	共21字节
 	*/
-	extern volatile BYTE g_lAGVNo;
+	extern BYTE g_AGVNo;
 	Msg_E1 e1;
-	if (1 == g_lAGVNo)
+	if (1 == g_AGVNo)
 	{
-		e1.agvno = g_lAGVNo;
+		e1.m1tag = e1.m2tag = e1.m6tag = 1;
+		e1.agvno = g_AGVNo;
 
 		e1.curPoint = 1;
 		e1.curDist = 1; // mm
@@ -71,22 +72,15 @@ void setVecE1()
 		g_vecE1.push_back(e1);
 	}
 
-	if (2 == g_lAGVNo) {
+	if (2 == g_AGVNo) {
+		e1.agvno = g_AGVNo;
+		e1.m1tag = e1.m2tag = e1.m6tag = 2;
 		e1.curPoint = 2;
 		e1.curDist = 1; // mm
 
 		for (int i = 0; i < 5; ++i)
 		{
 			// 在1-2段走1s 5次 5mm 1-2点41个像素，每次走1/5 8像素
-			g_vecE1No2.push_back(e1);
-			++e1.curDist;
-		}
-
-		e1.curPoint = 2;
-		e1.curDist = 1;
-		for (int i = 0; i < 5; ++i)
-		{
-			// 在2-3段走1s 5次 5mm 1-2点41个像素，每次走1/5 8像素
 			g_vecE1No2.push_back(e1);
 			++e1.curDist;
 		}
@@ -110,6 +104,15 @@ void setVecE1()
 		}
 
 		e1.curPoint = 26;
+		e1.curDist = 1;
+		for (int i = 0; i < 5; ++i)
+		{
+			// 在2-3段走1s 5次 5mm 1-2点41个像素，每次走1/5 8像素
+			g_vecE1No2.push_back(e1);
+			++e1.curDist;
+		}
+
+		e1.curPoint = 24;
 		e1.curDist = 1;
 		for (int i = 0; i < 5; ++i)
 		{
@@ -216,6 +219,7 @@ BOOL CagvScheduleClientDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	setVecE1();
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -296,14 +300,13 @@ void CagvScheduleClientDlg::OnClickedButtonConnect()
 	}
 
 	// 初始给server发送一条E1消息，上报小车车号等信息
-	extern volatile BYTE g_lAGVNo;
+	extern BYTE g_AGVNo;
 	Msg_E1 e1;
-	e1.agvno = g_lAGVNo;
+	e1.agvno = g_AGVNo;
 	e1.curPoint = e1.agvno;
 
 	int sendBytes = m_pAgvSocket->Send(&e1, sizeof(e1));
 	//m_pAgvSocket->AsyncSelect();
-	setVecE1();
 
 	SetTimer(1, 200, nullptr);
 }
@@ -326,18 +329,18 @@ void CagvScheduleClientDlg::OnClickedButtonQuit()
 void CagvScheduleClientDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	extern volatile BYTE g_lAGVNo;
+	extern BYTE g_AGVNo;
 	static size_t i = 0;
 	if (1 == nIDEvent)
 	{
 		if (m_pAgvSocket->m_bRecv) {
-			if (g_lAGVNo == 1) {
+			if (g_AGVNo == 1) {
 				int sendBytes = m_pAgvSocket->Send(&g_vecE1[i++], sizeof(Msg_E1));
 				if (i == 11)
 					KillTimer(1);
 			}
 				
-			if (g_lAGVNo == 2) {
+			if (g_AGVNo == 2) {
 				m_pAgvSocket->Send(&g_vecE1No2[i++], sizeof(Msg_E1));
 				if (i == 25)
 					KillTimer(1);

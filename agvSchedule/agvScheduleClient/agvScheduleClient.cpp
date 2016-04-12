@@ -38,7 +38,7 @@ CagvScheduleClientApp::CagvScheduleClientApp()
 
 CagvScheduleClientApp theApp;
 
-
+BYTE g_AGVNo = 0;
 // CagvScheduleClientApp ≥ı ºªØ
 
 BOOL CagvScheduleClientApp::InitInstance()
@@ -47,6 +47,7 @@ BOOL CagvScheduleClientApp::InitInstance()
 
 	// ≥µ∫≈++
 	InterlockedExchangeAdd((PLONG)&g_lAGVNo, 1);
+	g_AGVNo = g_lAGVNo;
 
 	AfxSocketInit();
 
