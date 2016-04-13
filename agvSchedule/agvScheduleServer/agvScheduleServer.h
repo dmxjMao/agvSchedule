@@ -9,6 +9,7 @@
 
 #include "resource.h"       // 主符号
 
+#include "ADOConn.h"
 
 // CagvScheduleServerApp:
 // 有关此类的实现，请参阅 agvScheduleServer.cpp
@@ -19,6 +20,8 @@ class CagvScheduleServerApp : public CWinApp
 public:
 	CagvScheduleServerApp();
 
+	_RecordsetPtr m_pRs;
+	ADOConn m_AdoConn;
 
 // 重写
 public:

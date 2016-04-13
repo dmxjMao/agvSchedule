@@ -185,6 +185,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ADOConn.h" />
     <ClInclude Include="agvScheduleServer.h" />
     <ClInclude Include="agvScheduleServerDoc.h" />
     <ClInclude Include="agvScheduleServerView.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="TaskList.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ADOConn.cpp" />
     <ClCompile Include="agvScheduleServer.cpp" />
     <ClCompile Include="agvScheduleServerDoc.cpp" />
     <ClCompile Include="agvScheduleServerView.cpp" />

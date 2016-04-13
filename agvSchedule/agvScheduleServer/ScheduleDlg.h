@@ -2,6 +2,7 @@
 #include "afxwin.h"
 
 #include "MsgStruct.h"
+#include "ADOConn.h"
 
 // CScheduleDlg 对话框
 
@@ -30,6 +31,9 @@ public:
 	CScheduleDlg(CagvScheduleServerDoc* pDoc, CWnd* pParent = NULL);
 
 	virtual ~CScheduleDlg();
+
+	_RecordsetPtr m_pRs;
+	ADOConn m_AdoConn;
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME

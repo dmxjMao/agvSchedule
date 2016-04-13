@@ -28,6 +28,12 @@
     <Filter Include="源文件\windows">
       <UniqueIdentifier>{980e60c2-92ee-4bf1-a4fd-603c1c9874b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\db">
+      <UniqueIdentifier>{236e8557-f933-412f-89a5-eb00e86f8a8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\db">
+      <UniqueIdentifier>{025aa326-f60f-42da-b249-c99130a1145d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -87,6 +93,9 @@
     <ClInclude Include="LoginDlg.h">
       <Filter>头文件\windows</Filter>
     </ClInclude>
+    <ClInclude Include="ADOConn.h">
+      <Filter>头文件\db</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="agvScheduleServer.cpp">
@@ -127,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="LoginDlg.cpp">
       <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="ADOConn.cpp">
+      <Filter>源文件\db</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

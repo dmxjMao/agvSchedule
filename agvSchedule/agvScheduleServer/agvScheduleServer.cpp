@@ -48,12 +48,28 @@ CagvScheduleServerApp theApp;
 
 BOOL CagvScheduleServerApp::InitInstance()
 {
+	if (!AfxOleInit()) { return FALSE; }
+
 	// µÇÂ¼
-	CLoginDlg dlgLogin;
-	dlgLogin.DoModal();
+	/*CLoginDlg dlgLogin;
+	if (IDOK == dlgLogin.DoModal()) {
+		CString name = dlgLogin.m_account;
+		CString sql = _T("select * from register where username = '") + name + _T("'");
+		m_AdoConn.OnInitADOConn();
+		m_pRs = m_AdoConn.GetRecordSet((_bstr_t)sql);
+		if (m_pRs->adoEOF) {
+			AfxMessageBox(_T("ÕËºÅ´íÎó£¡"));
+			return(FALSE);
+		}
+
+		CString passwd = (_bstr_t)m_pRs->GetCollect("password");
+		if (passwd != dlgLogin.m_passwd) {
+			AfxMessageBox(_T("ÃÜÂë´íÎó£¡"));
+			return(FALSE);
+		}
+	}*/
 
 	CWinApp::InitInstance();
-
 
 	EnableTaskbarInteraction(FALSE);
 

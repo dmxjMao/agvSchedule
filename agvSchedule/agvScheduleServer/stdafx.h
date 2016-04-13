@@ -36,7 +36,8 @@
 
 #define SVR_PORT    (8383)
 
-
+#import "C:\\Program Files\\Common Files\\System\\ado\\msado15.dll" no_namespace\
+		 rename("EOF","adoEOF")
 
 
 #ifdef _UNICODE

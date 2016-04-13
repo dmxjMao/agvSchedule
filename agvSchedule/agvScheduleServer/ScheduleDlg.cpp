@@ -149,17 +149,37 @@ void CScheduleDlg::OnBnClickedOk()
 	int prevSide = *it;
 	std::advance(it, 1);
 	int i = 0; // 控制段索引
+	CString strSideNo, strTemp; // 输出
 	for (auto it2 = it; it2 != vecRoute.end(); ++it2)
 	{
 		unsigned sideNo = mapSideNo[make_pair(prevSide, *it2)];
 		prevSide = *it2;
 		m_m1.secno[i++] = sideNo;
+		strTemp.Format(_T("%d\t"), sideNo);
+		strSideNo += strTemp;
 	}
 
 	Msg_M1M2M6 m1m2m6;
 	m1m2m6.m1 = m_m1;
 	m1m2m6.m2 = m_m2;
 	m1m2m6.m6 = m_m6;
+
+	// 写入数据库
+	m_AdoConn.OnInitADOConn();
+	CTime tm = CTime::GetCurrentTime();
+	CString strTm;
+	strTm.Format(_T("%04d/%02d/%02d %02d:%02d:%02d"),
+		tm.GetYear(), tm.GetMonth(), tm.GetDay(), tm.GetHour(), tm.GetMinute(), tm.GetSecond());
+	CString str; //,%d,%d,%d,%s
+	// , MSG_TAG, opt, m_m1.secnum, strSideNo
+	// ,msgtag,taskOptCode,sidenum,sideno
+	str.Format(_T("%d,\'%s\',%d,%d,%d,%d"),
+		taskno, strTm, agvno, 1, pClient->m_e1.curPoint, targetno);
+	CString sql = _T("insert into tasklist (")  \
+		_T("taskno,starttime,agvno,priority,startPt,endPt) ")  \
+		_T("values(") + str + _T(")");
+	m_AdoConn.ExecuteSQL((_bstr_t)sql);
+	m_AdoConn.ExitConn();
 
 	// 给小车发送M1,M2,M6消息
 	pClient->Send(&m1m2m6, sizeof(m1m2m6));

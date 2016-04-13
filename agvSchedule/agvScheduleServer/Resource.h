@@ -17,7 +17,6 @@
 #define IDC_BUTTON1                     1003
 #define IDC_LIST1                       1004
 #define IDC_EDIT_USECOUNT               1005
-#define IDC_EDIT2                       1006
 #define IDC_EDIT_PASSWD                 1006
 #define ID_32771                        32771
 #define ID_FILE_START                   32772
@@ -54,7 +53,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        322
-#define _APS_NEXT_COMMAND_VALUE         32800
+#define _APS_NEXT_COMMAND_VALUE         32806
 #define _APS_NEXT_CONTROL_VALUE         1006
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

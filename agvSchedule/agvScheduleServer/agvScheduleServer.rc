@@ -99,11 +99,11 @@ BEGIN
     END
     POPUP "窗口(&V)"
     BEGIN
-        MENUITEM "调度窗口",                        ID_WINDOW_SCHEDULE
-        MENUITEM "任务列表",                        ID_WINDOW_TASKLIST
-        MENUITEM "车辆列表",                        ID_WINDOW_CARLIST
-        MENUITEM "执行日志",                        ID_WINDOW_LOG
-        MENUITEM "报错信息",                        ID_WINDOW_ERROR
+        MENUITEM "调度窗口\tAlt+S",                 ID_WINDOW_SCHEDULE
+        MENUITEM "任务列表\tAlt+T",                 ID_WINDOW_TASKLIST
+        MENUITEM "车辆列表\tAlt+C",                 ID_WINDOW_CARLIST
+        MENUITEM "执行日志\tAlt+L",                 ID_WINDOW_LOG
+        MENUITEM "报错信息\tAlt+E",                 ID_WINDOW_ERROR
     END
     POPUP "帮助(&H)"
     BEGIN
@@ -119,19 +119,24 @@ END
 
 IDR_MAINFRAME ACCELERATORS
 BEGIN
-    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
-    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
-    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
-    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
-    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
-    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
-    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
-    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
-    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
-    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
-    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
-    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
-    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    "S",            ID_WINDOW_SCHEDULE,     VIRTKEY, ALT, NOINVERT
+    "C",            ID_WINDOW_CARLIST,      VIRTKEY, ALT, NOINVERT
+    "T",            ID_WINDOW_TASKLIST,     VIRTKEY, ALT, NOINVERT
+    "L",            ID_WINDOW_LOG,          VIRTKEY, ALT, NOINVERT
+    "E",            ID_WINDOW_ERROR,        VIRTKEY, ALT, NOINVERT
 END
 
 
