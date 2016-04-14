@@ -98,4 +98,5 @@ public:
 	afx_msg void OnWindowCarlist();
 	afx_msg void OnWindowLog();
 	afx_msg void OnWindowError();
+	afx_msg void OnWindowTaskCar();
 };

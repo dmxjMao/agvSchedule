@@ -96,6 +96,21 @@
     <ClInclude Include="ADOConn.h">
       <Filter>头文件\db</Filter>
     </ClInclude>
+    <ClInclude Include="TaskAndCarInfoDlg.h">
+      <Filter>头文件\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="TabCarInfoDlg.h">
+      <Filter>头文件\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="TabColorDlg.h">
+      <Filter>头文件\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="TabControlDlg.h">
+      <Filter>头文件\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="TabTaskInfoDlg.h">
+      <Filter>头文件\windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="agvScheduleServer.cpp">
@@ -140,6 +155,21 @@
     <ClCompile Include="ADOConn.cpp">
       <Filter>源文件\db</Filter>
     </ClCompile>
+    <ClCompile Include="TaskAndCarInfoDlg.cpp">
+      <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="TabCarInfoDlg.cpp">
+      <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="TabColorDlg.cpp">
+      <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="TabControlDlg.cpp">
+      <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="TabTaskInfoDlg.cpp">
+      <Filter>源文件\windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="agvScheduleServer.rc">
@@ -156,6 +186,48 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\agvScheduleServer.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\icon1.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\ico00001.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\ico00002.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\colorblack.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bmp00001.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\colorgreen.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\coloryellow.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap3.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\colorred.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\colorblue.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\brown.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\colorwhite.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

@@ -104,6 +104,7 @@ BEGIN
         MENUITEM "车辆列表\tAlt+C",                 ID_WINDOW_CARLIST
         MENUITEM "执行日志\tAlt+L",                 ID_WINDOW_LOG
         MENUITEM "报错信息\tAlt+E",                 ID_WINDOW_ERROR
+        MENUITEM "任务及车辆信息\tAlt+A",              ID_WINDOW_TASK_CAR
     END
     POPUP "帮助(&H)"
     BEGIN
@@ -132,11 +133,12 @@ BEGIN
     "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
     VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
-    "S",            ID_WINDOW_SCHEDULE,     VIRTKEY, ALT, NOINVERT
     "C",            ID_WINDOW_CARLIST,      VIRTKEY, ALT, NOINVERT
-    "T",            ID_WINDOW_TASKLIST,     VIRTKEY, ALT, NOINVERT
-    "L",            ID_WINDOW_LOG,          VIRTKEY, ALT, NOINVERT
     "E",            ID_WINDOW_ERROR,        VIRTKEY, ALT, NOINVERT
+    "L",            ID_WINDOW_LOG,          VIRTKEY, ALT, NOINVERT
+    "S",            ID_WINDOW_SCHEDULE,     VIRTKEY, ALT, NOINVERT
+    "T",            ID_WINDOW_TASKLIST,     VIRTKEY, ALT, NOINVERT
+    "A",            ID_WINDOW_TASK_CAR,     VIRTKEY, ALT, NOINVERT
 END
 
 
@@ -217,6 +219,55 @@ BEGIN
     LTEXT           "密码：",IDC_STATIC,17,37,25,8
     EDITTEXT        IDC_EDIT_USECOUNT,51,17,80,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_PASSWD,51,37,80,14,ES_PASSWORD | ES_AUTOHSCROLL
+END
+
+IDD_DIALOG_TASK_CAR_INFO DIALOGEX 0, 0, 273, 329
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "任务及车辆信息"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_TAB1,"SysTabControl32",0x0,7,7,259,315
+END
+
+IDD_DIALOG_COLOR DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMBO_CARTYPE,13,16,48,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "默认",IDC_STATIC,37,43,17,8
+    LTEXT           "空闲",IDC_STATIC,37,56,17,8
+    LTEXT           "有货",IDC_STATIC,37,68,17,8
+    LTEXT           "异常",IDC_STATIC,37,81,17,8
+    LTEXT           "充电",IDC_STATIC,37,93,17,8
+    LTEXT           "急停",IDC_STATIC,37,107,17,8
+    LTEXT           "下线",IDC_STATIC,37,120,17,8
+    CONTROL         IDB_BITMAP1,IDC_STATIC,"Static",SS_BITMAP,15,43,19,8
+    CONTROL         IDB_BITMAP_GREEN,IDC_STATIC,"Static",SS_BITMAP,15,56,19,8
+    CONTROL         IDB_BITMAP_YELLOW,IDC_STATIC,"Static",SS_BITMAP,15,68,19,8
+    CONTROL         IDB_BITMAP_RED,IDC_STATIC,"Static",SS_BITMAP,15,81,11,10
+    CONTROL         IDB_BITMAP_BLUE,IDC_STATIC,"Static",SS_BITMAP,15,94,11,10
+    CONTROL         IDB_BITMAP_BROWN,IDC_STATIC,"Static",SS_BITMAP,15,107,11,10
+    CONTROL         IDB_BITMAP3,IDC_STATIC,"Static",SS_BITMAP,15,120,11,10
+END
+
+IDD_DIALOG_CONTROL DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+IDD_DIALOG_TASKINFO DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,295,163
+END
+
+IDD_DIALOG_CARINFO DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,295,163
 END
 
 
@@ -322,6 +373,46 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 88
     END
+
+    IDD_DIALOG_TASK_CAR_INFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 266
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 322
+    END
+
+    IDD_DIALOG_COLOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
+
+    IDD_DIALOG_CONTROL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
+
+    IDD_DIALOG_TASKINFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
+
+    IDD_DIALOG_CARINFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -360,6 +451,51 @@ IDD_DIALOG_LOGIN AFX_DIALOG_LAYOUT
 BEGIN
     0
 END
+
+IDD_DIALOG_TASK_CAR_INFO AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_COLOR AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_CONTROL AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_TASKINFO AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_CARINFO AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP_BLACK        BITMAP                  "res\\colorblack.bmp"
+
+IDB_BITMAP_GREEN        BITMAP                  "res\\colorgreen.bmp"
+
+IDB_BITMAP_YELLOW       BITMAP                  "res\\coloryellow.bmp"
+
+IDB_BITMAP_RED          BITMAP                  "res\\colorred.bmp"
+
+IDB_BITMAP_BLUE         BITMAP                  "res\\colorblue.bmp"
+
+IDB_BITMAP_BROWN        BITMAP                  "res\\brown.bmp"
+
+IDB_BITMAP_WHITE        BITMAP                  "res\\colorwhite.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

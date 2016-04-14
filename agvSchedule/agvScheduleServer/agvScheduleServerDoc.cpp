@@ -19,6 +19,7 @@
 #include "CarListDlg.h"
 #include "LogDlg.h"
 #include "ErrorDlg.h"
+#include "TaskAndCarInfoDlg.h"
 
 #include <propkey.h>
 
@@ -51,6 +52,7 @@ ON_COMMAND(ID_WINDOW_TASKLIST, &CagvScheduleServerDoc::OnWindowTasklist)
 ON_COMMAND(ID_WINDOW_CARLIST, &CagvScheduleServerDoc::OnWindowCarlist)
 ON_COMMAND(ID_WINDOW_LOG, &CagvScheduleServerDoc::OnWindowLog)
 ON_COMMAND(ID_WINDOW_ERROR, &CagvScheduleServerDoc::OnWindowError)
+ON_COMMAND(ID_WINDOW_TASK_CAR, &CagvScheduleServerDoc::OnWindowTaskCar)
 END_MESSAGE_MAP()
 
 
@@ -427,4 +429,12 @@ void CagvScheduleServerDoc::OnWindowError()
 	// TODO: 在此添加命令处理程序代码
 	CErrorDlg errdlg;
 	errdlg.DoModal();
+}
+
+
+void CagvScheduleServerDoc::OnWindowTaskCar()
+{
+	// TODO: 在此添加命令处理程序代码
+	CTaskAndCarInfoDlg dlg;
+	dlg.DoModal();
 }

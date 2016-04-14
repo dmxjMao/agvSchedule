@@ -155,9 +155,11 @@ void CScheduleDlg::OnBnClickedOk()
 		unsigned sideNo = mapSideNo[make_pair(prevSide, *it2)];
 		prevSide = *it2;
 		m_m1.secno[i++] = sideNo;
-		strTemp.Format(_T("%d\t"), sideNo);
+		strTemp.Format(_T("%d-"), sideNo);
 		strSideNo += strTemp;
 	}
+	if (strSideNo.IsEmpty())
+		strSideNo = _T("''");
 
 	Msg_M1M2M6 m1m2m6;
 	m1m2m6.m1 = m_m1;
@@ -170,13 +172,12 @@ void CScheduleDlg::OnBnClickedOk()
 	CString strTm;
 	strTm.Format(_T("%04d/%02d/%02d %02d:%02d:%02d"),
 		tm.GetYear(), tm.GetMonth(), tm.GetDay(), tm.GetHour(), tm.GetMinute(), tm.GetSecond());
-	CString str; //,%d,%d,%d,%s
-	// , MSG_TAG, opt, m_m1.secnum, strSideNo
-	// ,msgtag,taskOptCode,sidenum,sideno
-	str.Format(_T("%d,\'%s\',%d,%d,%d,%d"),
-		taskno, strTm, agvno, 1, pClient->m_e1.curPoint, targetno);
+	CString str; //
+	str.Format(_T("%d,\'%s\',%d,%d,%d,%d,%d,%d,%d,%s"),
+		taskno, strTm, agvno, 1, pClient->m_e1.curPoint, \
+		targetno, MSG_TAG, opt, m_m1.secnum, strSideNo);
 	CString sql = _T("insert into tasklist (")  \
-		_T("taskno,starttime,agvno,priority,startPt,endPt) ")  \
+		_T("taskno,starttime,agvno,priority,startPt,endPt,msgtag,taskOptCode,sidenum,sideno) ")  \
 		_T("values(") + str + _T(")");
 	m_AdoConn.ExecuteSQL((_bstr_t)sql);
 	m_AdoConn.ExitConn();

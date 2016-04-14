@@ -201,8 +201,13 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScheduleDlg.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TabCarInfoDlg.h" />
+    <ClInclude Include="TabColorDlg.h" />
+    <ClInclude Include="TabControlDlg.h" />
     <ClInclude Include="TableEntry.h" />
+    <ClInclude Include="TabTaskInfoDlg.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TaskAndCarInfoDlg.h" />
     <ClInclude Include="TaskList.h" />
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +229,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TabCarInfoDlg.cpp" />
+    <ClCompile Include="TabColorDlg.cpp" />
+    <ClCompile Include="TabControlDlg.cpp" />
+    <ClCompile Include="TabTaskInfoDlg.cpp" />
+    <ClCompile Include="TaskAndCarInfoDlg.cpp" />
     <ClCompile Include="TaskList.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +245,20 @@
   <ItemGroup>
     <Image Include="res\agvScheduleServer.ico" />
     <Image Include="res\agvScheduleServerDoc.ico" />
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap2.bmp" />
+    <Image Include="res\bitmap3.bmp" />
+    <Image Include="res\bmp00001.bmp" />
+    <Image Include="res\brown.bmp" />
+    <Image Include="res\colorblack.bmp" />
+    <Image Include="res\colorblue.bmp" />
+    <Image Include="res\colorgreen.bmp" />
+    <Image Include="res\colorred.bmp" />
+    <Image Include="res\colorwhite.bmp" />
+    <Image Include="res\coloryellow.bmp" />
+    <Image Include="res\ico00001.ico" />
+    <Image Include="res\ico00002.ico" />
+    <Image Include="res\icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
