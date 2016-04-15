@@ -88,12 +88,12 @@ BOOL CTaskAndCarInfoDlg::OnInitDialog()
 void CTaskAndCarInfoDlg::OnCancel()
 {
 	// TODO: 在此添加专用代码和/或调用基类
-	if (m_color) {
-		delete m_color; m_color = nullptr;
-		delete m_control; m_control = nullptr;
-		delete m_task; m_task = nullptr;
-		delete m_car; m_car = nullptr;
-	}
+	//if (m_color) {
+	//	delete m_color; m_color = nullptr;
+	//	delete m_control; m_control = nullptr;
+	//	delete m_task; m_task = nullptr;
+	//	delete m_car; m_car = nullptr;
+	//}
 
 	CDialogEx::OnCancel();
 }

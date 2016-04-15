@@ -56,23 +56,23 @@ BOOL CTabTaskInfoDlg::OnInitDialog()
 	//m_ctl.ShowScrollBar(SB_HORZ);
 
 	// 读取数据库
-	m_AdoConn.OnInitADOConn();
-	CString sql = _T("select * from tasklist");
-	m_pRs = m_AdoConn.GetRecordSet((_bstr_t)sql);
+	//m_AdoConn.OnInitADOConn();
+	//CString sql = _T("select * from tasklist");
+	//m_pRs = m_AdoConn.GetRecordSet((_bstr_t)sql);
 
-	int i = 0;
-	while (!m_pRs->adoEOF) {
-		m_ctl.InsertItem(i, (_bstr_t)m_pRs->GetCollect("taskid"));
-		m_ctl.SetItemText(i, 1, (_bstr_t)m_pRs->GetCollect("agvno"));
-		m_ctl.SetItemText(i, 2, (_bstr_t)m_pRs->GetCollect("priority"));
-		m_ctl.SetItemText(i, 3, (_bstr_t)m_pRs->GetCollect("startPt"));
-		m_ctl.SetItemText(i, 4, (_bstr_t)m_pRs->GetCollect("endPt"));
+	//int i = 0;
+	//while (!m_pRs->adoEOF) {
+	//	m_ctl.InsertItem(i, (_bstr_t)m_pRs->GetCollect("taskid"));
+	//	m_ctl.SetItemText(i, 1, (_bstr_t)m_pRs->GetCollect("agvno"));
+	//	m_ctl.SetItemText(i, 2, (_bstr_t)m_pRs->GetCollect("priority"));
+	//	m_ctl.SetItemText(i, 3, (_bstr_t)m_pRs->GetCollect("startPt"));
+	//	m_ctl.SetItemText(i, 4, (_bstr_t)m_pRs->GetCollect("endPt"));
 
-		m_pRs->MoveNext();
-		++i;
-	}
+	//	m_pRs->MoveNext();
+	//	++i;
+	//}
 
-	m_AdoConn.ExitConn();
+	//m_AdoConn.ExitConn();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE

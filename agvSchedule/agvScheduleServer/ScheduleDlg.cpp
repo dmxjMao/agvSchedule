@@ -140,6 +140,9 @@ void CScheduleDlg::OnBnClickedOk()
 		AfxMessageBox(_T("还没用任何小车连接！"));
 		return;
 	}
+
+	pClient->m_targetPt = targetno;
+
 	Dijkstra(pClient->m_e1.curPoint, targetno);
 	auto& vecRoute = m_pDoc->m_vecRoute;
 	m_m1.secnum = (BYTE)vecRoute.size() - 1; // 段数
@@ -173,7 +176,7 @@ void CScheduleDlg::OnBnClickedOk()
 	strTm.Format(_T("%04d/%02d/%02d %02d:%02d:%02d"),
 		tm.GetYear(), tm.GetMonth(), tm.GetDay(), tm.GetHour(), tm.GetMinute(), tm.GetSecond());
 	CString str; //
-	str.Format(_T("%d,\'%s\',%d,%d,%d,%d,%d,%d,%d,%s"),
+	str.Format(_T("%d,\'%s\',%d,%d,%d,%d,%d,%d,%d,\'%s\'"),
 		taskno, strTm, agvno, 1, pClient->m_e1.curPoint, \
 		targetno, MSG_TAG, opt, m_m1.secnum, strSideNo);
 	CString sql = _T("insert into tasklist (")  \

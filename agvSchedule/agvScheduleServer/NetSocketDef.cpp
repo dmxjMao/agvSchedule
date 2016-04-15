@@ -5,12 +5,14 @@
 
 #include "agvScheduleServerView.h"
 #include "agvScheduleServerDoc.h"
+#include "TaskAndCarInfoDlg.h"
+#include "TabCarInfoDlg.h"
 
 
 #define USER_PRECISION 5	// 用户指定坐标的精度误差
 
-CListenSocket::CListenSocket(CagvScheduleServerView* pView)
-	: m_pView(pView)
+CListenSocket::CListenSocket(CagvScheduleServerView* pView, CTaskAndCarInfoDlg* pDlg)
+	: m_pView(pView), m_pDlg(pDlg)
 {
 
 }
@@ -18,7 +20,7 @@ CListenSocket::CListenSocket(CagvScheduleServerView* pView)
 
 void CListenSocket::OnAccept(int nErrorCode)
 {
-	CClientSocket* pClientSocket = new	CClientSocket(m_pView, this);
+	CClientSocket* pClientSocket = new	CClientSocket(m_pView, this, m_pDlg);
 	if (! Accept(*pClientSocket))
 	{
 		delete pClientSocket;
@@ -35,8 +37,9 @@ void CListenSocket::OnAccept(int nErrorCode)
 
 
 
-CClientSocket::CClientSocket(CagvScheduleServerView* pView, CListenSocket* pListenSocket)
-	: m_pView(pView), m_pListenSocket(pListenSocket)
+CClientSocket::CClientSocket(CagvScheduleServerView* pView, 
+	CListenSocket* pListenSocket, CTaskAndCarInfoDlg* pDlg)
+	: m_pView(pView), m_pListenSocket(pListenSocket), m_pDlg(pDlg)
 {
 
 }
@@ -45,6 +48,9 @@ void CClientSocket::OnReceive(int nErrorCode)
 {
 	// TODO: 在此添加专用代码和/或调用基类
 	int recvBytes = Receive(&m_e1, sizeof(m_e1));
+
+	// 给dialog发送E1消息
+	setDlgInfo();
 
 	auto pDoc = m_pView->GetDocument();
 	HBITMAP& hBitmap = pDoc->GetBitmap();
@@ -195,4 +201,41 @@ void CClientSocket::getAgvXY(CClientSocket* pClient, CPoint& pt)
 	}
 
 	pClient->m_pt = pt;
+}
+
+
+void CClientSocket::setDlgInfo()
+{
+	/*
+	E1: agv上报 200ms
+	45 31
+	01 车号
+	01 M1消息标签
+	01 M2消息标签
+	01 M6消息标签
+	00 01 当前所走段距离(mm)
+	00 01 当前段号
+	00 01 当前点号
+	00 01 agc状态位
+	01 agc错误码
+	01 预留
+	00 01 当前速度mm/s
+	01 移动完成&操作完成
+	00 01 当前任务号
+	共21字节
+	*/
+	CListCtrl& ctl = m_pDlg->m_car->m_ctl;
+	int nCount = ctl.GetItemCount();
+	CString carno, status, curpt, tarpt, curside;
+	carno.Format(_T("%d"), m_e1.agvno);
+	status.Format(_T("%d"), m_e1.agcStatus);
+	curpt.Format(_T("%d"), m_e1.curPoint);
+	tarpt.Format(_T("%d"), m_targetPt);
+	curside.Format(_T("%d"), m_e1.curSec);
+
+	ctl.InsertItem(nCount, carno);
+	ctl.SetItemText(nCount, 1, status);
+	ctl.SetItemText(nCount, 2, curpt);
+	ctl.SetItemText(nCount, 3, tarpt);
+	ctl.SetItemText(nCount, 4, curside);
 }

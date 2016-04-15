@@ -63,6 +63,7 @@ CagvScheduleServerDoc::CagvScheduleServerDoc()
 	// TODO: 在此添加一次性构造代码
 	m_bitmap = nullptr;
 	m_pListenSocket = nullptr;
+	m_pDlg = nullptr;
 }
 
 CagvScheduleServerDoc::~CagvScheduleServerDoc()
@@ -181,6 +182,16 @@ BOOL CagvScheduleServerDoc::OnOpenDocument(LPCTSTR lpszPathName)
 		
 	// 赋值成员
 	m_bitmap = hBitmap;
+
+	if (!m_pDlg) {
+		m_pDlg = new CTaskAndCarInfoDlg;
+		m_pDlg->Create(IDD_DIALOG_TASK_CAR_INFO, AfxGetApp()->GetMainWnd());
+		m_pDlg->ShowWindow(SW_SHOW);
+		m_pDlg->CenterWindow();
+	}
+	else {
+		m_pDlg->ShowWindow(SW_SHOW);
+	}
 
 	return TRUE;
 }
@@ -356,7 +367,7 @@ void CagvScheduleServerDoc::OnFileStart()
 	POSITION pos = GetFirstViewPosition();
 	CagvScheduleServerView* pView = (CagvScheduleServerView*)GetNextView(pos);
 
-	m_pListenSocket = new CListenSocket(pView);
+	m_pListenSocket = new CListenSocket(pView, m_pDlg);
 	//创建套接字
 	if (m_pListenSocket->Create(SVR_PORT))
 	{
@@ -435,6 +446,17 @@ void CagvScheduleServerDoc::OnWindowError()
 void CagvScheduleServerDoc::OnWindowTaskCar()
 {
 	// TODO: 在此添加命令处理程序代码
-	CTaskAndCarInfoDlg dlg;
-	dlg.DoModal();
+	//CTaskAndCarInfoDlg dlg;
+	//dlg.DoModal();
+
+	if (!m_pDlg) {
+		m_pDlg = new CTaskAndCarInfoDlg;
+		m_pDlg->Create(IDD_DIALOG_TASK_CAR_INFO, AfxGetApp()->GetMainWnd());
+		m_pDlg->ShowWindow(SW_SHOW);
+		m_pDlg->CenterWindow();
+	}
+	else {
+		m_pDlg->ShowWindow(SW_SHOW);
+	}
 }
+

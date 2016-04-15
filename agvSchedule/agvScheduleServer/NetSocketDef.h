@@ -3,11 +3,12 @@
 #include "MsgStruct.h"
 
 class CagvScheduleServerView;
+class CTaskAndCarInfoDlg;
 // 服务器监听套接字
 class CListenSocket : public CSocket
 {
 public:
-	CListenSocket(CagvScheduleServerView* pView);
+	CListenSocket(CagvScheduleServerView* pView, CTaskAndCarInfoDlg* pDlg);
 	virtual ~CListenSocket() {}
 
 	virtual void OnAccept(int nErrorCode);
@@ -16,6 +17,8 @@ public:
 	CCriticalSection	m_csClientList;
 
 	CagvScheduleServerView* m_pView;
+	CTaskAndCarInfoDlg*		m_pDlg;
+
 };
 
 
@@ -26,14 +29,18 @@ class CClientSocket : public CSocket
 public:
 	Msg_E1			m_e1;				// 最近的一条E1消息
 	CPoint			m_pt;				// 最近一条E1消息对应的小车坐标
+	UINT16			m_targetPt = 0;		// 目标点
 	CListenSocket*	m_pListenSocket;	// 回指监听套接字
 	CagvScheduleServerView* m_pView;
+	CTaskAndCarInfoDlg*		m_pDlg;
 
 public:
-	CClientSocket(CagvScheduleServerView* pView, CListenSocket* pListenSocket);
+	CClientSocket(CagvScheduleServerView* pView, 
+		CListenSocket* pListenSocket, CTaskAndCarInfoDlg* pDlg);
 	virtual void OnReceive(int nErrorCode);
 	virtual void OnSend(int nErrorCode);
 
 private:
 	void getAgvXY(CClientSocket* pClient, CPoint& pt);
+	void setDlgInfo();
 };

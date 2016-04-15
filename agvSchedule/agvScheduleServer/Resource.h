@@ -25,7 +25,6 @@
 #define IDB_BITMAP_BROWN                334
 #define IDB_BITMAP3                     335
 #define IDB_BITMAP_WHITE                335
-#define IDD_DIALOG1                     336
 #define IDD_DIALOG_CONTROL              336
 #define IDD_DIALOG_TASKINFO             337
 #define IDD_DIALOG_CARINFO              340
@@ -38,6 +37,14 @@
 #define IDC_EDIT_PASSWD                 1006
 #define IDC_TAB1                        1006
 #define IDC_COMBO_CARTYPE               1007
+#define IDC_COMBO_CARID                 1008
+#define IDC_STATIC_MAINSTATUS           1009
+#define IDC_STATIC_OPTCODE              1010
+#define IDC_STATIC_CURPOINT             1011
+#define IDC_STATIC_ERRORCODE            1012
+#define IDC_STATIC_CURSIDE              1014
+#define IDC_STATIC_TASKNO               1015
+#define IDC_STATIC_TARGETPOINT          1016
 #define ID_32771                        32771
 #define ID_FILE_START                   32772
 #define ID_32773                        32773
@@ -76,7 +83,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        342
 #define _APS_NEXT_COMMAND_VALUE         32810
-#define _APS_NEXT_CONTROL_VALUE         1008
+#define _APS_NEXT_CONTROL_VALUE         1013
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

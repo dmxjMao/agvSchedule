@@ -21,6 +21,7 @@ enum EDIT_PUSH_STATUS{
 
 
 class CListenSocket;
+class CTaskAndCarInfoDlg;
 class CagvScheduleServerDoc : public CDocument
 {
 // 成员
@@ -33,9 +34,9 @@ public:
 	std::vector<int>		m_vecRoute;							// 行走路线
 	CMap<unsigned, unsigned, CPoint, CPoint> m_mapPoint;		// (点号，坐标)的映射
 	CListenSocket*		m_pListenSocket;
-	//CDC*				m_pDC;				//视图的DC
+	//CDC*				m_pDC;				// 视图的DC
 
-
+	CTaskAndCarInfoDlg*	m_pDlg;				// 无模态对话框
 
 // 操作
 public:
