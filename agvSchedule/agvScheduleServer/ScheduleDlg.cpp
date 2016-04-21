@@ -283,6 +283,7 @@ void CScheduleDlg::SetBufm2(BYTE* buf, const Msg_M2& m2)
 
 void CScheduleDlg::SetBufm1(char* buf, const Msg_M1& m1)
 {
+	//test
 	int i = 0;
 	buf[i++] = m1.head[0];
 	buf[i++] = m1.head[1];
