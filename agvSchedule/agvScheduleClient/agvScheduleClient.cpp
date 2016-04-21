@@ -6,9 +6,12 @@
 #include "agvScheduleClient.h"
 #include "agvScheduleClientDlg.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
+
 
 // 创建一个"车号"节
 #pragma data_seg("AGVNo")
@@ -48,6 +51,18 @@ BOOL CagvScheduleClientApp::InitInstance()
 	// 车号++
 	InterlockedExchangeAdd((PLONG)&g_lAGVNo, 1);
 	g_AGVNo = g_lAGVNo;
+
+	//HINSTANCE hSkinDll = LoadLibrary(_T("lib\\SkinPPWTL.dll"));
+	//if (!hSkinDll) {
+	//	return(FALSE);
+	//}
+	//typedef BOOL(__cdecl *PFUN)(TCHAR* szSkinFile, BOOL bFromIni);
+	//PFUN pfun = (PFUN)GetProcAddress(hSkinDll, "skinppLoadSkin");
+	//if (!pfun) {
+	//	return(FALSE);
+	//}
+	//BOOL bRet = (*pfun)(_T("AlphaOS.ssk"), FALSE);
+	//skinppLoadSkin(_T("skin\\AlphaOS.ssk"));
 
 	AfxSocketInit();
 
@@ -91,6 +106,8 @@ BOOL CagvScheduleClientApp::InitInstance()
 	{
 		delete pShellManager;
 	}
+
+	//FreeLibrary(hSkinDll);
 
 	// 由于对话框已关闭，所以将返回 FALSE 以便退出应用程序，
 	//  而不是启动应用程序的消息泵。

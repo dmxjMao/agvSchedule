@@ -20,8 +20,6 @@ private:
 	Graph *				m_baseGraph;
 	CagvScheduleServerDoc* m_pDoc;
 
-	// 因为socket信息都保存在doc中，所以回指mainfreme
-
 
 private:
 	BOOL Dijkstra(UINT16 src, UINT16 des); // Dijkstra求最短路径
@@ -50,4 +48,13 @@ public:
 	CComboBox m_comboOpt;
 	CComboBox m_comboTargetNo;
 	afx_msg void OnBnClickedOk();
+
+private:
+	void SetBufm6(BYTE* buf, const Msg_M6& m6);
+	void SetBufm2(BYTE* buf, const Msg_M2& m2);
+	void SetBufm1(char* buf, const Msg_M1& m1);
+	void SetBuf(BYTE* buf, const Msg_M6&, const Msg_M1&, const Msg_M2&);
+public:
+	afx_msg void OnClickedIdm2();
+	afx_msg void OnClickedIdm1();
 };

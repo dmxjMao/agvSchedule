@@ -21,6 +21,9 @@
 #include "ErrorDlg.h"
 #include "TaskAndCarInfoDlg.h"
 
+#include "TrafficManager.h"
+#include "CarManager.h"
+
 #include <propkey.h>
 
 #ifdef _DEBUG
@@ -64,10 +67,17 @@ CagvScheduleServerDoc::CagvScheduleServerDoc()
 	m_bitmap = nullptr;
 	m_pListenSocket = nullptr;
 	m_pDlg = nullptr;
+	m_pScheDlg = nullptr;
 }
 
 CagvScheduleServerDoc::~CagvScheduleServerDoc()
 {
+	if (m_pTrafficMgn) {
+		delete m_pTrafficMgn; m_pTrafficMgn = nullptr;
+	}
+	if (m_pCarMgn) {
+		delete m_pCarMgn; m_pCarMgn = nullptr;
+	}
 }
 
 BOOL CagvScheduleServerDoc::OnNewDocument()
@@ -192,6 +202,9 @@ BOOL CagvScheduleServerDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	else {
 		m_pDlg->ShowWindow(SW_SHOW);
 	}
+
+	m_pTrafficMgn = new CTrafficManager;
+	m_pCarMgn = new CCarManager;
 
 	return TRUE;
 }
@@ -393,10 +406,19 @@ void CagvScheduleServerDoc::OnFileStart()
 void CagvScheduleServerDoc::OnWindowSchedule()
 {
 	// TODO: 在此添加命令处理程序代码
-	CScheduleDlg dlg(this);
-	if (IDOK == dlg.DoModal())
-	{
-		
+	//CScheduleDlg dlg(this);
+	//if (IDOK == dlg.DoModal())
+	//{
+	//	
+	//}
+	if (!m_pScheDlg) {
+		m_pScheDlg = new CScheduleDlg(this);
+		m_pScheDlg->Create(IDD_DIALOG_SCHEDULE, AfxGetApp()->GetMainWnd());
+		m_pScheDlg->ShowWindow(SW_SHOW);
+		m_pScheDlg->CenterWindow();
+	}
+	else {
+		m_pScheDlg->ShowWindow(SW_SHOW);
 	}
 }
 

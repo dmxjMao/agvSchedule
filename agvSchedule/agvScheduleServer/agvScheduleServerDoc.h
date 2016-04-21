@@ -22,6 +22,9 @@ enum EDIT_PUSH_STATUS{
 
 class CListenSocket;
 class CTaskAndCarInfoDlg;
+class CTrafficManager;
+class CCarManager;
+class CScheduleDlg;
 class CagvScheduleServerDoc : public CDocument
 {
 // 成员
@@ -37,6 +40,9 @@ public:
 	//CDC*				m_pDC;				// 视图的DC
 
 	CTaskAndCarInfoDlg*	m_pDlg;				// 无模态对话框
+	CScheduleDlg*		m_pScheDlg;
+	CTrafficManager*	m_pTrafficMgn;		// 交通管理模块
+	CCarManager*		m_pCarMgn;			// 车辆管理模块
 
 // 操作
 public:

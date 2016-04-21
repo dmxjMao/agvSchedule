@@ -50,6 +50,44 @@ BOOL CagvScheduleServerApp::InitInstance()
 {
 	if (!AfxOleInit()) { return FALSE; }
 
+	struct Msg_E1
+	{
+		const BYTE head[3] = { 0x21, 0x15, 0x41 };
+		const BYTE type[2] = { 0x45, 0x31 };
+		BYTE agvno = 0;
+		BYTE m1tag = 0;
+		BYTE m2tag = 0;
+		BYTE m6tag = 0;
+		BYTE moveOrOpt = 0;
+		UINT16 curDist = 0;
+		UINT16 curSec = 0;
+		UINT16 curPoint = 0;
+		UINT16 agcStatus = 0;
+		BYTE agcError = 0;
+		BYTE reserve = 0;
+		UINT16 curSpeed = 0;
+		UINT16 curTask = 0;
+
+		Msg_E1& operator=(const Msg_E1& e1) {
+			agvno = e1.agvno;
+			m1tag = e1.m1tag;
+			m2tag = e1.m2tag;
+			m6tag = e1.m6tag;
+			curDist = e1.curDist;
+			curSec = e1.curSec;
+			curPoint = e1.curPoint;
+			agcStatus = e1.agcStatus;
+			agcError = e1.agcError;
+			reserve = e1.reserve;
+			curSpeed = e1.curSpeed;
+			moveOrOpt = e1.moveOrOpt;
+			curTask = e1.curTask;
+			return *this;
+		}
+	};
+
+	size_t a = sizeof(Msg_E1);
+
 	// µÇÂ¼
 	/*CLoginDlg dlgLogin;
 	if (IDOK == dlgLogin.DoModal()) {

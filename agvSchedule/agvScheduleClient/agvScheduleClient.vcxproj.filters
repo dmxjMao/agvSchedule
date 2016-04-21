@@ -39,6 +39,9 @@
     <ClInclude Include="MsgStruct.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="lib\SkinPPWTL.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="agvScheduleClient.cpp">

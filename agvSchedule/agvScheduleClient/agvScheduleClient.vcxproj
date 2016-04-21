@@ -95,6 +95,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -187,6 +189,7 @@
   <ItemGroup>
     <ClInclude Include="agvScheduleClient.h" />
     <ClInclude Include="agvScheduleClientDlg.h" />
+    <ClInclude Include="lib\SkinPPWTL.h" />
     <ClInclude Include="MsgStruct.h" />
     <ClInclude Include="NetSocketDef.h" />
     <ClInclude Include="Resource.h" />

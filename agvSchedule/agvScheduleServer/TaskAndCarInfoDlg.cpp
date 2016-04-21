@@ -73,12 +73,12 @@ BOOL CTaskAndCarInfoDlg::OnInitDialog()
 	m_task->MoveWindow(&rs);
 	m_car->MoveWindow(&rs);
 
-	m_color->ShowWindow(TRUE);
+	m_color->ShowWindow(FALSE);
 	m_control->ShowWindow(FALSE);
 	m_task->ShowWindow(FALSE);
-	m_car->ShowWindow(FALSE);
+	m_car->ShowWindow(TRUE);
 	
-	m_tab.SetCurSel(0);
+	m_tab.SetCurSel(3);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE

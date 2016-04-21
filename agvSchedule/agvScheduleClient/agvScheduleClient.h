@@ -10,6 +10,9 @@
 
 #include "resource.h"		// 主符号
 
+#include "SkinPPWTL.h"
+#pragma comment(lib, "SkinPPWTL.lib")
+
 // CagvScheduleClientApp: 
 // 有关此类的实现，请参阅 agvScheduleClient.cpp
 //

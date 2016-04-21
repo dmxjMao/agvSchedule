@@ -69,9 +69,7 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\agvScheduleServer.ico"
-
 IDR_agvScheduleServTYPE ICON                    "res\\agvScheduleServerDoc.ico"
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -171,7 +169,9 @@ BEGIN
     GROUPBOX        "请指定操作：",IDC_STATIC,7,62,271,40
     COMBOBOX        IDC_COMBO_OPT,51,77,48,62,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "操作：",IDC_STATIC,14,79,25,8
-    PUSHBUTTON      "确认",IDOK,7,108,36,14
+    PUSHBUTTON      "M6",IDOK,7,108,36,14
+    PUSHBUTTON      "M2",IDM2,53,108,36,14
+    PUSHBUTTON      "M1",IDM1,99,108,36,14
 END
 
 IDD_DIALOG_TASKLIST DIALOGEX 0, 0, 557, 231
@@ -255,25 +255,53 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     GROUPBOX        "",IDC_STATIC,9,7,222,277
-    GROUPBOX        "   车辆ID",IDC_STATIC,89,33,48,40
-    COMBOBOX        IDC_COMBO_CARID,91,49,41,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "   主状态",IDC_STATIC,89,76,48,40
-    LTEXT           " ",IDC_STATIC_MAINSTATUS,97,92,29,11
-    GROUPBOX        "   操作码",IDC_STATIC,143,76,48,40
-    GROUPBOX        "  点距离   ",IDC_STATIC,143,33,48,40
-    LTEXT           " ",IDC_STATIC_OPTCODE,151,92,28,10
+    GROUPBOX        "   车辆ID",IDC_STATIC,121,33,48,40
+    COMBOBOX        IDC_COMBO_CARID,124,47,41,58,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "   主状态",IDC_STATIC,119,76,48,40
+    LTEXT           "未知",IDC_STATIC_MAINSTATUS,130,92,29,11
+    GROUPBOX        "   操作码",IDC_STATIC,178,76,48,40
+    GROUPBOX        "  点距离   ",IDC_STATIC,178,33,48,40
+    LTEXT           " 0",IDC_STATIC_OPTCODE,187,91,28,10,0,WS_EX_RIGHT
     GROUPBOX        "   当前点",IDC_STATIC,19,119,47,24
-    LTEXT           " ",IDC_STATIC_CURPOINT,27,129,29,11
+    LTEXT           "0",IDC_STATIC_CURPOINT,27,129,29,11,0,WS_EX_RIGHT
     GROUPBOX        "   当前段",IDC_STATIC,69,119,47,24
-    GROUPBOX        "   任务号",IDC_STATIC,122,119,47,24
+    GROUPBOX        "   任务号",IDC_STATIC,119,118,47,24
     GROUPBOX        "   目标点",IDC_STATIC,179,119,47,24
-    LTEXT           " ",IDC_STATIC_CURSIDE,79,129,29,11
-    LTEXT           " ",IDC_STATIC_TASKNO,131,129,29,11
-    LTEXT           " ",IDC_STATIC_TARGETPOINT,187,128,29,11
+    LTEXT           "0",IDC_STATIC_CURSIDE,79,129,29,11,0,WS_EX_RIGHT
+    LTEXT           "0",IDC_STATIC_TASKNO,131,129,29,11,0,WS_EX_RIGHT
+    LTEXT           "0",IDC_STATIC_TARGETPOINT,187,128,29,11,0,WS_EX_RIGHT
     GROUPBOX        "",IDC_STATIC,20,148,206,25
     LTEXT           "错误码：",IDC_STATIC,24,159,33,8
-    LTEXT           " ",IDC_STATIC_ERRORCODE,63,159,8,8
+    LTEXT           "错误码",IDC_STATIC_ERRORCODE,63,159,34,8
     GROUPBOX        "车辆状态位",IDC_STATIC,21,177,204,41
+    LTEXT           "主状态",IDC_STATIC_POINTDIST,188,50,25,8
+    LTEXT           "1号车",IDC_STATIC_CARID,21,33,49,40
+    PUSHBUTTON      "查看错误",IDC_BUTTON_LOOKERROR,105,156,50,14,WS_DISABLED
+    PUSHBUTTON      "清除错误",IDC_BUTTON_CLEARERROR,158,156,50,14,WS_DISABLED
+    LTEXT           "0",IDC_STATIC_STATUS0,29,188,8,8
+    LTEXT           "1",IDC_STATIC_STATUS1,51,188,8,8
+    LTEXT           "2",IDC_STATIC_STATUS2,73,188,8,8
+    LTEXT           "3",IDC_STATIC_STATUS3,97,188,8,8
+    LTEXT           "4",IDC_STATIC_STATUS4,124,188,8,8
+    LTEXT           "5",IDC_STATIC_STATUS5,152,188,8,8
+    LTEXT           "6",IDC_STATIC_STATUS6,175,188,8,8
+    LTEXT           "7",IDC_STATIC_STATUS7,195,188,8,8
+    LTEXT           "8",IDC_STATIC_STATUS8,29,202,8,8
+    LTEXT           "9",IDC_STATIC_STATUS9,53,202,8,8
+    LTEXT           "10",IDC_STATIC_STATUS10,71,202,8,8
+    LTEXT           "11",IDC_STATIC_STATUS11,94,202,8,8
+    LTEXT           "12",IDC_STATIC_STATUS12,121,202,8,8
+    LTEXT           "13",IDC_STATIC_STATUS13,150,202,8,8
+    LTEXT           "14",IDC_STATIC_STATUS14,174,202,8,8
+    LTEXT           "15",IDC_STATIC_STATUS15,195,202,8,8
+    GROUPBOX        "",IDC_STATIC,23,225,200,24
+    PUSHBUTTON      "上/下线",IDC_BUTTON_UPDOWN,113,232,38,14
+    PUSHBUTTON      "维修",IDC_BUTTON_REPAIR,171,232,38,14
+    GROUPBOX        "",IDC_STATIC,23,252,200,24
+    PUSHBUTTON      "全部上线",IDC_BUTTON_ALLUP,113,259,38,14
+    PUSHBUTTON      "全部下线",IDC_BUTTON_ALLDOWN,171,259,38,14
+    LTEXT           "通信状态",IDC_STATIC,36,234,33,8
+    LTEXT           "通用功能",IDC_STATIC,35,260,33,8
 END
 
 IDD_DIALOG_TASKINFO DIALOGEX 0, 0, 309, 177
@@ -504,19 +532,12 @@ END
 //
 
 IDB_BITMAP_BLACK        BITMAP                  "res\\colorblack.bmp"
-
 IDB_BITMAP_GREEN        BITMAP                  "res\\colorgreen.bmp"
-
 IDB_BITMAP_YELLOW       BITMAP                  "res\\coloryellow.bmp"
-
 IDB_BITMAP_RED          BITMAP                  "res\\colorred.bmp"
-
 IDB_BITMAP_BLUE         BITMAP                  "res\\colorblue.bmp"
-
 IDB_BITMAP_BROWN        BITMAP                  "res\\brown.bmp"
-
 IDB_BITMAP_WHITE        BITMAP                  "res\\colorwhite.bmp"
-
 
 /////////////////////////////////////////////////////////////////////////////
 //

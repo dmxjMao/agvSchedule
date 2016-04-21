@@ -309,6 +309,7 @@ void CagvScheduleClientDlg::OnClickedButtonConnect()
 	Msg_E1 e1;
 	e1.agvno = g_AGVNo;
 	e1.curPoint = e1.agvno;
+	e1.agcStatus = 1032; // ²åÈëÏµÍ³
 
 	int sendBytes = m_pAgvSocket->Send(&e1, sizeof(e1));
 	//m_pAgvSocket->AsyncSelect();

@@ -2,6 +2,9 @@
 // Microsoft Visual C++ 生成的包含文件。
 // 供 agvScheduleServer.rc 使用
 //
+#define IDM2                            2
+#define IDOK3                           3
+#define IDM1                            3
 #define IDD_ABOUTBOX                    100
 #define IDR_MAINFRAME                   128
 #define IDR_agvScheduleServTYPE         130
@@ -32,7 +35,9 @@
 #define IDC_COMBO_TARGETNO              1001
 #define IDC_COMBO_OPT                   1002
 #define IDC_BUTTON1                     1003
+#define IDC_BUTTON_LOOKERROR            1003
 #define IDC_LIST1                       1004
+#define IDC_BUTTON_CLEARERROR           1004
 #define IDC_EDIT_USECOUNT               1005
 #define IDC_EDIT_PASSWD                 1006
 #define IDC_TAB1                        1006
@@ -42,9 +47,31 @@
 #define IDC_STATIC_OPTCODE              1010
 #define IDC_STATIC_CURPOINT             1011
 #define IDC_STATIC_ERRORCODE            1012
+#define IDC_STATIC_POINTDIST            1013
 #define IDC_STATIC_CURSIDE              1014
 #define IDC_STATIC_TASKNO               1015
 #define IDC_STATIC_TARGETPOINT          1016
+#define IDC_STATIC_CARID                1017
+#define IDC_STATIC_STATUS0              1018
+#define IDC_STATIC_STATUS1              1019
+#define IDC_STATIC_STATUS2              1020
+#define IDC_STATIC_STATUS3              1021
+#define IDC_STATIC_STATUS4              1022
+#define IDC_STATIC_STATUS5              1023
+#define IDC_STATIC_STATUS6              1024
+#define IDC_STATIC_STATUS7              1025
+#define IDC_STATIC_STATUS8              1026
+#define IDC_STATIC_STATUS9              1027
+#define IDC_STATIC_STATUS10             1028
+#define IDC_STATIC_STATUS11             1029
+#define IDC_STATIC_STATUS12             1030
+#define IDC_STATIC_STATUS13             1031
+#define IDC_STATIC_STATUS14             1032
+#define IDC_STATIC_STATUS15             1033
+#define IDC_BUTTON_UPDOWN               1034
+#define IDC_BUTTON_REPAIR               1035
+#define IDC_BUTTON_ALLUP                1036
+#define IDC_BUTTON_ALLDOWN              1037
 #define ID_32771                        32771
 #define ID_FILE_START                   32772
 #define ID_32773                        32773
@@ -83,7 +110,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        342
 #define _APS_NEXT_COMMAND_VALUE         32810
-#define _APS_NEXT_CONTROL_VALUE         1013
+#define _APS_NEXT_CONTROL_VALUE         1037
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

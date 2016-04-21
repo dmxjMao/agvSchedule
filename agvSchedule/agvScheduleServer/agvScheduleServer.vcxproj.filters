@@ -111,6 +111,15 @@
     <ClInclude Include="TabTaskInfoDlg.h">
       <Filter>头文件\windows</Filter>
     </ClInclude>
+    <ClInclude Include="CarManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CarDef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="agvScheduleServer.cpp">
@@ -169,6 +178,15 @@
     </ClCompile>
     <ClCompile Include="TabTaskInfoDlg.cpp">
       <Filter>源文件\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="TrafficManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CarManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CarDef.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
